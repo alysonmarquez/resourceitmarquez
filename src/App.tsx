@@ -110,8 +110,8 @@ export default function App() {
           
           <header className="header">
             <button type="button" className="header__logo-button" aria-label="Exibindo logo">
-              <span className={`header__img-frame transition-all duration-500 ${theme === 'techgirl' ? 'border-[#e83e8c]' : 'border-[var(--medium-dark)]'}`}>
-                <div className={`header__img flex items-center justify-center transition-all duration-500 overflow-hidden ${theme === 'techgirl' ? 'bg-[#2a0a18]' : 'bg-[var(--black)]'}`}>
+              <span className={`header__img-frame transition-all duration-500 ${theme === 'techgirl' ? 'border-[#e83e8c] rounded-full' : 'border-[var(--medium-dark)] rounded-3xl'}`}>
+                <div className={`header__img flex items-center justify-center transition-all duration-500 overflow-hidden ${theme === 'techgirl' ? 'bg-[#2a0a18] rounded-full' : 'bg-[var(--black)] rounded-3xl'}`}>
                    {theme === 'techgirl' ? (
                      <img src="/techgirl.jpeg" alt="Tech Girl" className="w-full h-full object-cover" onError={(e) => {
                        e.currentTarget.style.display = 'none';

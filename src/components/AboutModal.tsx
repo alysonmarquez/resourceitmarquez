@@ -20,33 +20,30 @@ export function AboutModal({ isOpen, onClose }: AboutModalProps) {
         </div>
         <div className="modal__body space-y-6">
           <p className="text-[var(--text-color-secondary)] leading-relaxed">
-            💻 <strong>Bem-vindo ao Estudos Backend</strong><br/>
-            Este grupo foi criado para reunir desenvolvedores e estudantes interessados em Back-end. Nosso objetivo é compartilhar conhecimento, resolver dúvidas, estudar em conjunto e evoluir tecnicamente.
+            🚀 <strong>Bem-vindo(a) à Comunidade Resource IT Marquez</strong><br/><br/>
+            Nascemos para democratizar o acesso ao conhecimento, conectar pessoas e acelerar a evolução profissional na área de tecnologia.
+            Nossa comunidade abriga diversas frentes, focadas em promover desde os primeiros passos até a alta especialização.
           </p>
 
           <div className="space-y-3">
-            <h3 className="font-semibold text-white">📚 Aqui você encontrará:</h3>
+            <h3 className="font-semibold text-white">🌟 Nossas Frentes:</h3>
             <ul className="space-y-2 text-[var(--text-color-secondary)] pl-4 list-disc list-inside">
-              <li>Materiais de estudo</li>
-              <li>Desafios e exercícios</li>
-              <li>Discussões sobre arquitetura e boas práticas</li>
-              <li>APIs, bancos de dados, autenticação e segurança</li>
-              <li>Projetos práticos e colaboração</li>
-              <li>Oportunidades e dicas de carreira</li>
+              <li><strong>Tech Girl:</strong> Focado na inclusão, apoio e aceleração de mulheres na tecnologia.</li>
+              <li><strong>Estudos Back-End:</strong> Compartilhamento de conhecimento profundo sobre arquitetura, APIs e bancos de dados.</li>
+              <li><strong>Aulas de Inglês:</strong> Grupos de conversação e ensino gratuitos para capacitação internacional.</li>
+              <li><strong>Projetos Colaborativos:</strong> Construção de portfólio real trabalhando em equipe.</li>
+              <li><strong>Carreira & Ofertas:</strong> Troca de vagas, mentoria e dicas para o mercado de trabalho.</li>
             </ul>
           </div>
 
           <div className="space-y-3">
-            <h3 className="font-semibold text-white">⚙️ Tecnologias abordadas:</h3>
+            <h3 className="font-semibold text-white">⚙️ Tecnologias e Áreas:</h3>
             <div className="flex flex-wrap gap-2">
-              {['Node.js', 'Java', 'C#/.NET', 'Python', 'PHP', 'Go', 'PostgreSQL', 'MySQL', 'MongoDB', 'Docker', 'Git', 'REST', 'GraphQL', 'Microsserviços', 'Cloud'].map(tech => (
+              {['Back-End', 'Front-End', 'Cloud', 'DevOps', 'Data Science', 'QA', 'English', 'Mentoria'].map(tech => (
                 <span key={tech} className="px-2 py-1 bg-[var(--black)] border border-[var(--medium-dark)] rounded-md text-xs font-medium text-[var(--text-color-secondary)]">
                   {tech}
                 </span>
               ))}
-              <span className="px-2 py-1 bg-[var(--black)] border border-[var(--medium-dark)] rounded-md text-xs font-medium text-[var(--text-color-secondary)]">
-                e muito mais
-              </span>
             </div>
           </div>
         </div>
