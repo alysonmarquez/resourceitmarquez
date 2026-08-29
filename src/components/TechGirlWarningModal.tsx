@@ -1,4 +1,4 @@
-import { X, ExternalLink } from 'lucide-react';
+﻿import { X, ExternalLink, Sparkles, AlertCircle } from 'lucide-react';
 
 interface TechGirlWarningModalProps {
   isOpen: boolean;
@@ -10,24 +10,32 @@ export function TechGirlWarningModal({ isOpen, onClose }: TechGirlWarningModalPr
 
   return (
     <>
-      <div className="modal__backdrop" onClick={onClose}></div>
-      <div className="modal-box !border-[#e83e8c55]">
-        <div className="modal__header">
-          <h2 className="modal__title text-white">Comunidade Tech Girl</h2>
-          <button className="modal__close-btn" onClick={onClose}>
-            <X size={20} />
+      <div className="modal__backdrop" onClick={onClose} />
+      <div className="modal-box animate-subir !border-[#967189]/40 shadow-[0_0_40px_-10px_rgba(150,113,137,0.3)]">
+        <div className="modal__header !border-[#967189]/20">
+          <div className="flex items-center gap-2.5">
+            <div className="w-2.5 h-2.5 rounded-full bg-[#967189] animate-pulse-dot" />
+            <h2 className="modal__title text-[#E6E9EF]">Comunidade Tech Girl</h2>
+          </div>
+          <button className="modal__close-btn" onClick={onClose} aria-label="Fechar">
+            <X size={18} />
           </button>
         </div>
         
-        <div className="modal__body space-y-6">
-          <div className="p-4 bg-[#e83e8c11] border border-[#e83e8c55] rounded-xl text-[#f3f4f6]">
-            <p className="font-medium text-[#e83e8c] mb-2">Atenção!</p>
-            <p className="text-sm leading-relaxed text-[var(--text-color-secondary)]">
-              A comunidade Tech Girl é exclusiva para mulheres cis e mulheres trans. 
-              Para sua aprovação no grupo, você precisará <strong className="text-white">deixar a foto do seu perfil do WhatsApp visível publicamente</strong>.
+        <div className="modal__body space-y-5">
+          <div className="p-4 bg-[#967189]/10 border border-[#967189]/30 rounded-xl">
+            <div className="flex items-center gap-2 mb-2 text-[#E6E9EF] font-semibold text-xs uppercase font-mono tracking-wider">
+              <AlertCircle size={15} className="text-[#967189]" />
+              <span>Atenção & Regras de Acesso</span>
+            </div>
+            <p className="text-xs text-[#A1AEC2] leading-relaxed">
+              A comunidade <strong className="text-[#E6E9EF]">Tech Girl</strong> é um espaço seguro e exclusivo para mulheres cis e mulheres trans. 
             </p>
-            <p className="text-sm leading-relaxed text-[var(--text-color-secondary)] mt-3">
-              Após a aprovação, você poderá voltar a foto do perfil para as configurações normais, se desejar.
+            <p className="text-xs text-[#A1AEC2] leading-relaxed mt-2.5">
+              Para validação e aprovação rápida na entrada, pedimos que você <strong className="text-[#E6E9EF] underline underline-offset-2">mantenha a foto do seu perfil do WhatsApp visível publicamente</strong>.
+            </p>
+            <p className="text-[11px] text-[#A1AEC2]/70 leading-relaxed mt-2">
+              Após a aprovação, você poderá retornar suas configurações normais de privacidade, caso prefira.
             </p>
           </div>
 
@@ -36,9 +44,9 @@ export function TechGirlWarningModal({ isOpen, onClose }: TechGirlWarningModalPr
             target="_blank" 
             rel="noopener noreferrer"
             onClick={onClose}
-            className="w-full flex items-center justify-center gap-2 p-4 text-center border border-[#e83e8c] bg-[#e83e8c22] rounded-xl hover:bg-[#e83e8c44] transition-all text-white font-medium"
+            className="btn-primary w-full flex items-center justify-center gap-2 p-3.5 text-center text-white font-semibold text-sm cursor-pointer"
           >
-            Entendi, quero entrar
+            <span>Entendi, quero entrar no grupo</span>
             <ExternalLink size={16} />
           </a>
         </div>

@@ -1,0 +1,52 @@
+[
+  {
+    "id": "120363420184891232@g.us",
+    "name": "Resource IT Marquez - Geral",
+    "category": "Geral",
+    "platform": "WhatsApp",
+    "link": "https://chat.whatsapp.com/LWFPj7qWEE11VCgcEvchHi",
+    "membersCount": 330,
+    "status": "Ativo • Oficial",
+    "description": "Networking principal, avisos oficiais, dúvidas e conexões na área tech."
+  },
+  {
+    "id": "120363413475472336@g.us",
+    "name": "Tech Girl (Apenas Mulheres)",
+    "category": "Tech Girl",
+    "platform": "WhatsApp",
+    "link": "https://chat.whatsapp.com/LWFPj7qWEE11VCgcEvchHi",
+    "membersCount": 270,
+    "status": "Ativo • Oficial",
+    "description": "Espaço seguro e exclusivo para mulheres desenvolvedoras e estudantes."
+  },
+  {
+    "id": "120363418472486998@g.us",
+    "name": "Resource IT Marquez - Vagas & Ofertas Tech",
+    "category": "Vagas & Ofertas",
+    "platform": "WhatsApp",
+    "link": "https://chat.whatsapp.com/Hwfpb0H9atAHnKom9HMq4s",
+    "membersCount": 185,
+    "status": "Ativo • Oficial",
+    "description": "Oportunidades de estágio, vagas Jr/Pleno/Sênior e descontos tech."
+  },
+  {
+    "id": "tg-canal",
+    "name": "Resource IT | Canal Oficial",
+    "category": "Telegram",
+    "platform": "Telegram",
+    "link": "https://t.me/+Wu8bsrBmcBpkNzQx",
+    "membersCount": 38,
+    "status": "Ativo • Oficial",
+    "description": "Canal de avisos rápidos, transmissões e novidades."
+  },
+  {
+    "id": "dc-servidor",
+    "name": "Resource IT | Servidor Discord",
+    "category": "Discord",
+    "platform": "Discord",
+    "link": "https://discord.gg/6P8Qka2zk",
+    "membersCount": 17,
+    "status": "Ativo • Oficial",
+    "description": "Canais de voz, salas de estudos e sessões de pair programming."
+  }
+]

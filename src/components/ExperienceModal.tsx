@@ -1,5 +1,5 @@
-import { useState, useEffect } from 'react';
-import { X, ArrowLeft } from 'lucide-react';
+﻿import { useState, useEffect } from 'react';
+import { X, ArrowLeft, UserCheck, Heart, Sparkles, ChevronRight } from 'lucide-react';
 
 interface ExperienceModalProps {
   isOpen: boolean;
@@ -32,69 +32,119 @@ export function ExperienceModal({ isOpen, onClose, onSelectExperience }: Experie
 
   return (
     <>
-      <div className="modal__backdrop" onClick={onClose}></div>
-      <div className="modal-box">
+      <div className="modal__backdrop" onClick={onClose} />
+      <div className="modal-box animate-subir">
         <div className="modal__header">
-          {view === 'lgbt' ? (
-            <button className="text-[var(--text-color-secondary)] hover:text-white transition-colors mr-2" onClick={() => setView('main')}>
-              <ArrowLeft size={20} />
-            </button>
-          ) : null}
-          <h2 className="modal__title">Personalizar experiência</h2>
-          <button className="modal__close-btn" onClick={onClose}>
-            <X size={20} />
+          <div className="flex items-center gap-2.5">
+            {view === 'lgbt' ? (
+              <button 
+                className="p-1 rounded-lg hover:bg-[#103653]/40 text-[#A1AEC2] hover:text-[#E6E9EF] transition-colors cursor-pointer mr-1" 
+                onClick={() => setView('main')}
+                aria-label="Voltar"
+              >
+                <ArrowLeft size={18} />
+              </button>
+            ) : (
+              <div className="w-2.5 h-2.5 rounded-full bg-[#1D5171]" />
+            )}
+            <h2 className="modal__title">Personalizar Experiência</h2>
+          </div>
+          <button className="modal__close-btn" onClick={onClose} aria-label="Fechar">
+            <X size={18} />
           </button>
         </div>
         
-        <div className="modal__body space-y-6">
-          <p className="text-[var(--text-color-secondary)]">
+        <div className="modal__body space-y-5">
+          <p className="text-xs text-[#A1AEC2] leading-relaxed">
             {view === 'main' 
-              ? <>Para ajustar a experiência visual da comunidade, informe como você prefere seguir.<br/><br/>A escolha define quais grupos aparecem primeiro e salva a preferência neste dispositivo.</>
-              : <>Por favor, especifique para podermos direcionar você à melhor experiência dentro da nossa comunidade.</>
+              ? <>Para personalizar sua experiência visual e ter acesso prioritário aos canais adequados, selecione uma opção abaixo.</>
+              : <>Para direcionarmos você ao espaço mais adequado da comunidade, especifique:</>
             }
           </p>
 
-          <div className="flex flex-col gap-3">
+          <div className="flex flex-col gap-2.5">
             {view === 'main' ? (
               <>
-                <button
+                <button 
+                  className="flex items-center justify-between p-3.5 rounded-xl border border-[#E6E9EF]/10 bg-[#103653]/20 hover:bg-[#103653]/40 hover:border-[#1D5171] transition-all cursor-pointer text-left group"
                   onClick={() => handleSelect('mulher_cis')}
-                  className="w-full p-4 text-left border border-[var(--medium-dark)] bg-[var(--black)] rounded-xl hover:bg-[var(--dark-gray)] transition-all text-white font-medium"
                 >
-                  Mulher cis
+                  <div className="flex items-center gap-3">
+                    <div className="p-2 rounded-lg bg-[#967189]/20 text-[#E6E9EF]">
+                      <Sparkles size={16} />
+                    </div>
+                    <div>
+                      <div className="font-semibold text-xs text-[#E6E9EF]">Mulher (Cisgênero)</div>
+                      <div className="text-[11px] text-[#A1AEC2]">Acesso prioritário ao Tech Girl</div>
+                    </div>
+                  </div>
+                  <ChevronRight size={16} className="text-[#A1AEC2] group-hover:text-[#E6E9EF]" />
                 </button>
-                <button
+
+                <button 
+                  className="flex items-center justify-between p-3.5 rounded-xl border border-[#E6E9EF]/10 bg-[#103653]/20 hover:bg-[#103653]/40 hover:border-[#1D5171] transition-all cursor-pointer text-left group"
                   onClick={() => handleSelect('homem_cis')}
-                  className="w-full p-4 text-left border border-[var(--medium-dark)] bg-[var(--black)] rounded-xl hover:bg-[var(--dark-gray)] transition-all text-white font-medium"
                 >
-                  Homem cis
+                  <div className="flex items-center gap-3">
+                    <div className="p-2 rounded-lg bg-[#1D5171]/30 text-[#E6E9EF]">
+                      <UserCheck size={16} />
+                    </div>
+                    <div>
+                      <div className="font-semibold text-xs text-[#E6E9EF]">Homem (Cisgênero)</div>
+                      <div className="text-[11px] text-[#A1AEC2]">Comunidade Geral, Back-End e Vagas</div>
+                    </div>
+                  </div>
+                  <ChevronRight size={16} className="text-[#A1AEC2] group-hover:text-[#E6E9EF]" />
                 </button>
-                <button
+
+                <button 
+                  className="flex items-center justify-between p-3.5 rounded-xl border border-[#E6E9EF]/10 bg-[#103653]/20 hover:bg-[#103653]/40 hover:border-[#1D5171] transition-all cursor-pointer text-left group"
                   onClick={() => handleSelect('lgbt')}
-                  className="w-full p-4 text-left border border-[var(--medium-dark)] bg-[var(--black)] rounded-xl hover:bg-[var(--dark-gray)] transition-all text-white font-medium"
                 >
-                  Sou LGBT
-                </button>
-                <button
-                  onClick={() => handleSelect('nao_informar')}
-                  className="w-full p-4 text-left border border-[var(--medium-dark)] bg-[var(--black)] rounded-xl hover:bg-[var(--dark-gray)] transition-all text-white font-medium"
-                >
-                  Prefiro não informar
+                  <div className="flex items-center gap-3">
+                    <div className="p-2 rounded-lg bg-[#E0A34A]/20 text-[#E0A34A]">
+                      <Heart size={16} />
+                    </div>
+                    <div>
+                      <div className="font-semibold text-xs text-[#E6E9EF]">Comunidade LGBTQIA+</div>
+                      <div className="text-[11px] text-[#A1AEC2]">Identidades trans, não-binárias e diversas</div>
+                    </div>
+                  </div>
+                  <ChevronRight size={16} className="text-[#A1AEC2] group-hover:text-[#E6E9EF]" />
                 </button>
               </>
             ) : (
               <>
-                <button
+                <button 
+                  className="flex items-center justify-between p-3.5 rounded-xl border border-[#E6E9EF]/10 bg-[#103653]/20 hover:bg-[#103653]/40 hover:border-[#1D5171] transition-all cursor-pointer text-left group"
                   onClick={() => handleSelect('mulher_trans')}
-                  className="w-full p-4 text-left border border-[var(--medium-dark)] bg-[var(--black)] rounded-xl hover:bg-[var(--dark-gray)] transition-all text-white font-medium"
                 >
-                  Mulher trans
+                  <div className="flex items-center gap-3">
+                    <div className="p-2 rounded-lg bg-[#967189]/20 text-[#E6E9EF]">
+                      <Sparkles size={16} />
+                    </div>
+                    <div>
+                      <div className="font-semibold text-xs text-[#E6E9EF]">Mulher Trans / Travesti</div>
+                      <div className="text-[11px] text-[#A1AEC2]">100% bem-vinda ao espaço Tech Girl</div>
+                    </div>
+                  </div>
+                  <ChevronRight size={16} className="text-[#A1AEC2] group-hover:text-[#E6E9EF]" />
                 </button>
-                <button
-                  onClick={() => handleSelect('outros')}
-                  className="w-full p-4 text-left border border-[var(--medium-dark)] bg-[var(--black)] rounded-xl hover:bg-[var(--dark-gray)] transition-all text-white font-medium"
+
+                <button 
+                  className="flex items-center justify-between p-3.5 rounded-xl border border-[#E6E9EF]/10 bg-[#103653]/20 hover:bg-[#103653]/40 hover:border-[#1D5171] transition-all cursor-pointer text-left group"
+                  onClick={() => handleSelect('geral')}
                 >
-                  Outros
+                  <div className="flex items-center gap-3">
+                    <div className="p-2 rounded-lg bg-[#1D5171]/30 text-[#E6E9EF]">
+                      <UserCheck size={16} />
+                    </div>
+                    <div>
+                      <div className="font-semibold text-xs text-[#E6E9EF]">Homem Trans / Não-Binário / Outros</div>
+                      <div className="text-[11px] text-[#A1AEC2]">Comunidade Geral e grupos de estudo</div>
+                    </div>
+                  </div>
+                  <ChevronRight size={16} className="text-[#A1AEC2] group-hover:text-[#E6E9EF]" />
                 </button>
               </>
             )}

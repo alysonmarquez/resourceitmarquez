@@ -7,86 +7,117 @@ import {
   Code2,
   Gamepad2,
   Users,
-  Linkedin,
-  Instagram,
-  Globe,
-  CupSoda,
   Sparkles,
-  X
+  ArrowUpRight,
+  ShieldCheck,
+  ChevronRight,
+  Copy,
+  Check,
+  Tag,
+  Shirt
 } from 'lucide-react';
+import { Navbar } from './components/Navbar';
+import { StatsSection } from './components/StatsSection';
+import { FrentesSection } from './components/FrentesSection';
+import { ProjectsSection } from './components/ProjectsSection';
+import { ActivityMonitor } from './components/ActivityMonitor';
+import { FounderSection } from './components/FounderSection';
+import { Footer } from './components/Footer';
 import { ExperienceModal } from './components/ExperienceModal';
 import { ProjectsModal } from './components/ProjectsModal';
 import { AboutModal } from './components/AboutModal';
 import { TechGirlWarningModal } from './components/TechGirlWarningModal';
+import { fetchCommunityGroups } from './services/activityService';
 
 export default function App() {
   const [isExperienceModalOpen, setIsExperienceModalOpen] = useState(false);
   const [isProjectsModalOpen, setIsProjectsModalOpen] = useState(false);
   const [isAboutModalOpen, setIsAboutModalOpen] = useState(false);
   const [isTechGirlWarningModalOpen, setIsTechGirlWarningModalOpen] = useState(false);
+  const [totalMembers, setTotalMembers] = useState(840);
+  const [copiedCoupon, setCopiedCoupon] = useState<string | null>(null);
   
   const [theme, setTheme] = useState<'general' | 'techgirl'>(() => {
     return (localStorage.getItem('themePreference') as 'general' | 'techgirl') || 'general';
   });
-  const [hasPreference, setHasPreference] = useState(() => !!localStorage.getItem('themePreference'));
-  const [currentPartner, setCurrentPartner] = useState(0);
+
+  const isTechGirl = theme === 'techgirl';
 
   const handleSetTheme = (newTheme: 'general' | 'techgirl') => {
     setTheme(newTheme);
     localStorage.setItem('themePreference', newTheme);
-    setHasPreference(true);
   };
 
-  const resetTheme = () => {
-    localStorage.removeItem('themePreference');
-    setTheme('general');
-    setHasPreference(false);
+  useEffect(() => {
+    fetchCommunityGroups().then(data => {
+      if (data && data.totalMembers) {
+        setTotalMembers(data.totalMembers);
+      }
+    });
+  }, []);
+
+  const handleCopyCoupon = (coupon: string) => {
+    navigator.clipboard.writeText(coupon);
+    setCopiedCoupon(coupon);
+    setTimeout(() => setCopiedCoupon(null), 2500);
   };
 
   const partners = [
     {
-      name: 'Alysson Marquez',
-      type: 'Mentoria',
-      title: 'Carreira & Mentorias',
-      desc: 'Análise curricular, otimização de LinkedIn e mentorias para iniciantes em tech.',
-      link: 'https://wa.me/558699336352',
-      icon: '💼'
-    },
-    {
-      name: 'Welison',
-      type: 'Inglês',
-      title: 'Inglês para Tech',
-      desc: 'Aulas grátis na comunidade Resource IT Marquez | English.',
-      link: 'https://wa.me/5589999262292',
-      icon: '🇺🇸'
-    },
-    {
-      name: 'Zaroc',
-      type: 'Parceiro',
-      title: 'Soluções em Tecnologia',
-      desc: 'Apoiador oficial da comunidade Resource IT Marquez.',
-      link: 'https://www.zaroc.com.br/?utm_source=influenciador&utm_medium=social&utm_campaign=MARQUEZZDEV',
-      icon: '🏢'
-    },
-    {
+      id: 'rocketseat',
       name: 'Rocketseat',
-      type: 'Assinatura',
-      title: 'Decole sua carreira em programação',
-      desc: 'A plataforma completa para começar do zero ou se especializar e estudar no seu ritmo.',
+      type: 'Plataforma Parceira',
+      title: 'Decole sua Carreira em Programação',
+      desc: 'Formação completa com desconto exclusivo para membros da comunidade usando o cupom oficial.',
+      coupon: 'MARQUEZZDEV',
       link: 'https://www.rocketseat.com.br/oferta/influencer/v2/marquezzdev',
       icon: '🚀'
+    },
+    {
+      id: 'zaroc',
+      name: 'Zaroc Tech Wear',
+      type: 'Tech Wear & Vestuário',
+      title: 'Camiseta Tech Modal Essential',
+      desc: 'Vestuário tecnológico e minimalista para desenvolvedores com tecido Modal Essential e tecnologia anti-odor.',
+      coupon: 'MARQUEZZDEV',
+      link: 'https://www.zaroc.com.br/?utm_source=influenciador&utm_medium=social&utm_campaign=MARQUEZZDEV',
+      icon: '👕'
+    },
+    {
+      id: 'marquezmatch',
+      name: 'MarquezMatch',
+      type: 'IA & Carreira Tech',
+      title: 'Análise Curricular & LinkedIn',
+      desc: 'Plataforma inteligente para otimização de perfil, matching de vagas e análise com IA de currículos tech.',
+      link: 'https://www.marquezmatch.online/',
+      icon: '🎯'
+    },
+    {
+      id: 'welison',
+      name: 'Welison',
+      type: 'Inglês Tech',
+      title: 'Aulas de Conversação Gratuitas',
+      desc: 'Encontros semanais práticos em grupo na comunidade Resource IT Marquez | English para acelerar seu inglês.',
+      link: 'https://wa.me/5589999262292',
+      icon: '🇺🇸'
     }
   ];
 
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setCurrentPartner(prev => (prev + 1) % partners.length);
-    }, 5000);
-    return () => clearInterval(timer);
-  }, [partners.length]);
-
   return (
-    <>
+    <div className="min-h-screen bg-[#030C1E] text-[#E6E9EF] overflow-x-hidden selection:bg-[#1D5171] selection:text-white">
+      
+      {/* Official Aura Atmosphere Background */}
+      <div className={isTechGirl ? "hero-aura-bg-techgirl" : "hero-aura-bg"} />
+      <div className="noise-overlay" />
+
+      {/* Fixed Navbar */}
+      <Navbar 
+        theme={theme}
+        onToggleTheme={() => handleSetTheme(isTechGirl ? 'general' : 'techgirl')}
+        onOpenExperienceModal={() => setIsExperienceModalOpen(true)}
+      />
+
+      {/* Modals */}
       <ExperienceModal 
         isOpen={isExperienceModalOpen} 
         onClose={() => setIsExperienceModalOpen(false)} 
@@ -95,195 +126,252 @@ export default function App() {
       <ProjectsModal 
         isOpen={isProjectsModalOpen} 
         onClose={() => setIsProjectsModalOpen(false)} 
+        isTechGirl={isTechGirl}
       />
       <AboutModal
         isOpen={isAboutModalOpen}
         onClose={() => setIsAboutModalOpen(false)}
+        isTechGirl={isTechGirl}
       />
       <TechGirlWarningModal
         isOpen={isTechGirlWarningModalOpen}
         onClose={() => setIsTechGirlWarningModalOpen(false)}
       />
 
-      <main className="home">
-        <div className="wrapper-home">
-          
-          <header className="header">
-            <button type="button" className="header__logo-button" aria-label="Exibindo logo">
-              <span className={`header__img-frame transition-all duration-500 ${theme === 'techgirl' ? 'border-[#e83e8c] rounded-full' : 'border-[var(--medium-dark)] rounded-3xl'}`}>
-                <div className={`header__img flex items-center justify-center transition-all duration-500 overflow-hidden ${theme === 'techgirl' ? 'bg-[#2a0a18] rounded-full' : 'bg-[var(--black)] rounded-3xl'}`}>
-                   {theme === 'techgirl' ? (
-                     <img src="/techgirl.jpeg" alt="Tech Girl" className="w-full h-full object-cover" onError={(e) => {
-                       e.currentTarget.style.display = 'none';
-                       e.currentTarget.parentElement!.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="text-[#e83e8c]"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/></svg>';
-                     }} />
-                   ) : (
-                     <img src="/resource-it-marquez.jpeg" alt="Resource IT Marquez" className="w-full h-full object-cover" onError={(e) => {
-                       e.currentTarget.style.display = 'none';
-                       e.currentTarget.parentElement!.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="text-white"><polyline points="4 17 10 11 4 5"/><line x1="12" x2="20" y1="19" y2="19"/></svg>';
-                     }} />
-                   )}
+      {/* Main Content Area */}
+      <main id="inicio" className="relative z-10">
+        
+        {/* HERO SECTION (2 Columns on Desktop) */}
+        <section className="pt-28 md:pt-36 pb-16 md:pb-24">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-start">
+              
+              {/* Left Column: Hero Headlines & Action Buttons */}
+              <div className="lg:col-span-7 flex flex-col gap-6 animate-subir">
+                
+                {/* Kicker Pill Badge */}
+                <div className="flex items-center gap-3">
+                  <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-[#E6E9EF]/10 bg-[#103653]/30 backdrop-blur-md">
+                    <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse-dot" />
+                    <span className="font-mono text-xs font-medium text-[#E6E9EF]">
+                      +{totalMembers.toLocaleString('pt-BR')} Conexões Reais Sincronizadas
+                    </span>
+                  </div>
+
+                  <span className="hidden sm:inline-block font-mono text-xs text-[#A1AEC2]/70">
+                    Desde 07/05/2025
+                  </span>
                 </div>
-              </span>
-            </button>
-            
-            <div className="header__content">
-              <h1 id="header-title" className="header__title text-center">
-                {theme === 'techgirl' ? 'Resource IT Tech Girl' : 'Resource IT Marquez'}
-              </h1>
-              <ul className="header__stats-list">
-                <li className="header__stats-list__item">
-                  <CupSoda size={16} className="header__stats-list__item-icon text-[var(--text-color-secondary)]" />
-                  <p className="header__stats-list__item-text">Desde 07/05/2025</p>
-                </li>
-              </ul>
-              
-              <section className="section-social-media">
-                <a href="https://www.linkedin.com/in/alysonmarquez/" target="_blank" rel="noopener noreferrer" className="button link small normal">
-                  <Linkedin size={16} />
-                </a>
-                <a href="https://www.instagram.com/marquezz.dev/" target="_blank" rel="noopener noreferrer" className="button link small normal">
-                  <Instagram size={16} />
-                </a>
-                <a href="https://www.marquezzdev.online/" target="_blank" rel="noopener noreferrer" className="button link small normal">
-                  <Globe size={16} />
-                </a>
-              </section>
-            </div>
-          </header>
 
-          <section aria-labelledby="groups-showcase-title" className="groups-showcase">
-            <nav aria-label="Menu institucional" className="home-menu">
-              
-              {theme === 'techgirl' && (
-                <button type="button" onClick={() => setIsTechGirlWarningModalOpen(true)} className="home-menu__item" style={{ borderColor: '#e83e8c55', backgroundColor: '#e83e8c11' }}>
-                  <span className="flex items-center gap-2 text-white font-medium"><Sparkles size={16} className="text-[#e83e8c]"/> Comunidade Tech Girl</span>
-                  <ExternalLink size={14} className="text-[#e83e8c]" />
-                </button>
-              )}
+                {/* Main Headline */}
+                <h1 className="font-display text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-[#E6E9EF] leading-[1.08]">
+                  Construa sua carreira em tecnologia com quem{' '}
+                  <span className={`bg-gradient-to-r bg-clip-text text-transparent ${
+                    isTechGirl 
+                      ? 'from-[#967189] via-[#997074] to-[#E6E9EF]' 
+                      : 'from-[#1D5171] via-[#246386] to-[#E6E9EF]'
+                  }`}>
+                    está no jogo.
+                  </span>
+                </h1>
 
-              <a href="https://chat.whatsapp.com/LWFPj7qWEE11VCgcEvchHi" target="_blank" rel="noopener noreferrer" className="home-menu__item">
-                <span className="flex items-center gap-2"><Users size={16} className="text-[var(--text-color-secondary)]"/> Comunidade geral no WhatsApp</span>
-                <ExternalLink size={14} />
-              </a>
+                {/* Subtitle */}
+                <p className="text-base sm:text-lg text-[#A1AEC2] max-w-xl leading-relaxed">
+                  Uma comunidade de desenvolvedores e estudantes focada em <strong className="text-[#E6E9EF]">Back-End</strong>, <strong className="text-[#E6E9EF]">projetos práticos</strong>, <strong className="text-[#E6E9EF]">aulas de inglês gratuitas</strong> e <strong className="text-[#E6E9EF]">aceleração profissional</strong>.
+                </p>
 
-              <a href="https://chat.whatsapp.com/CDeeiIrv3evLFU8U61dxuw?s=sw&p=i&mlu=0&ilr=0" target="_blank" rel="noopener noreferrer" className="home-menu__item">
-                <span className="flex items-center gap-2"><MessageCircle size={16} className="text-[var(--text-color-secondary)]"/> Aulas de Inglês em grupo gratuitas</span>
-                <ExternalLink size={14} />
-              </a>
+                {/* Action CTA Buttons */}
+                <div className="flex flex-col sm:flex-row flex-wrap items-stretch sm:items-center gap-3 pt-2">
+                  <a 
+                    href="https://chat.whatsapp.com/LWFPj7qWEE11VCgcEvchHi" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="btn-primary inline-flex items-center justify-center gap-2.5 px-7 py-3.5 text-sm"
+                  >
+                    <MessageCircle size={18} />
+                    <span>Entrar no WhatsApp</span>
+                    <ArrowUpRight size={16} />
+                  </a>
 
-              <a href="https://chat.whatsapp.com/FuwkXEqEUtnGeOxSmVAjGj" target="_blank" rel="noopener noreferrer" className="home-menu__item">
-                <span className="flex items-center gap-2"><Code2 size={16} className="text-[var(--text-color-secondary)]"/> Estudos Back-End</span>
-                <ExternalLink size={14} />
-              </a>
+                  {isTechGirl ? (
+                    <button 
+                      type="button" 
+                      onClick={() => setIsTechGirlWarningModalOpen(true)}
+                      className="inline-flex items-center justify-center gap-2.5 px-6 py-3.5 rounded-xl font-semibold text-sm text-[#E6E9EF] border border-[#967189]/40 bg-[#967189]/15 hover:bg-[#967189]/25 transition-all cursor-pointer"
+                    >
+                      <Sparkles size={18} className="text-[#967189]" />
+                      <span>Comunidade Tech Girl</span>
+                    </button>
+                  ) : (
+                    <a 
+                      href="https://discord.gg/6P8Qka2zk" 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      className="btn-secondary inline-flex items-center justify-center gap-2.5 px-6 py-3.5 text-sm"
+                    >
+                      <Gamepad2 size={18} />
+                      <span>Ingressar no Discord</span>
+                    </a>
+                  )}
 
-              <a href="https://chat.whatsapp.com/Hwfpb0H9atAHnKom9HMq4s" target="_blank" rel="noopener noreferrer" className="home-menu__item">
-                <span className="flex items-center gap-2"><Briefcase size={16} className="text-[var(--text-color-secondary)]"/> Grupo de Ofertas</span>
-                <ExternalLink size={14} />
-              </a>
+                  <button 
+                    type="button" 
+                    onClick={() => setIsAboutModalOpen(true)}
+                    className="inline-flex items-center justify-center gap-2 px-5 py-3.5 rounded-xl text-xs font-semibold text-[#A1AEC2] hover:text-[#E6E9EF] border border-transparent hover:border-[#E6E9EF]/10 bg-transparent transition-all cursor-pointer"
+                  >
+                    <ShieldCheck size={16} />
+                    <span>Sobre a Comunidade</span>
+                  </button>
+                </div>
 
-              <a href="https://t.me/+Wu8bsrBmcBpkNzQx" target="_blank" rel="noopener noreferrer" className="home-menu__item">
-                <span className="flex items-center gap-2"><MessageCircle size={16} className="text-[var(--text-color-secondary)]"/> Comunidade no Telegram</span>
-                <ExternalLink size={14} />
-              </a>
-
-              <a href="https://discord.gg/6P8Qka2zk" target="_blank" rel="noopener noreferrer" className="home-menu__item">
-                <span className="flex items-center gap-2"><Gamepad2 size={16} className="text-[var(--text-color-secondary)]"/> Comunidade no Discord</span>
-                <ExternalLink size={14} />
-              </a>
-
-              <button type="button" onClick={() => setIsProjectsModalOpen(true)} className="home-menu__item">
-                <span className="flex items-center gap-2"><Terminal size={16} className="text-[var(--text-color-secondary)]"/> Projetos em andamento</span>
-                <ExternalLink size={14} />
-              </button>
-
-              <button type="button" onClick={() => setIsAboutModalOpen(true)} className="home-menu__item">
-                <span className="flex items-center gap-2"><Users size={16} className="text-[var(--text-color-secondary)]"/> Sobre nós</span>
-                <ExternalLink size={14} />
-              </button>
-
-              {hasPreference ? (
-                <button type="button" onClick={resetTheme} className="home-menu__item home-menu__item--muted !border-[var(--medium-dark)]">
-                  <span className="flex items-center gap-2">Resetar preferência sexual</span>
-                  <X size={14} />
-                </button>
-              ) : (
-                <button type="button" onClick={() => setIsExperienceModalOpen(true)} className="home-menu__item home-menu__item--muted">
-                  <span className="flex items-center gap-2">Personalizar experiência</span>
-                  <Users size={14} />
-                </button>
-              )}
-
-            </nav>
-          </section>
-
-          <section aria-labelledby="supporters-title" className="supporters">
-            <div className="supporters__badge">
-              <h2 id="supporters-title" className="supporters__title">Apoiadores</h2>
-              <div className="supporters__marquee">
-                <a href="https://www.rocketseat.com.br/oferta/influencer/v2/marquezzdev" target="_blank" rel="noopener noreferrer" className="supporters__item" aria-label="Abrir apoiador Rocketseat">
-                  <span className="text-xl">🚀</span>
-                  <span>Rocketseat</span>
-                </a>
-              </div>
-            </div>
-          </section>
-
-          <section aria-labelledby="partner-content-title" className="partner-content">
-            <div className="partner-content__header">
-              <h2 id="partner-content-title" className="partner-content__title">Conteúdos dos apoiadores</h2>
-            </div>
-            
-            <div aria-label="Conteúdos compartilhados pelos apoiadores" className="w-full">
-              <div className="w-full overflow-hidden">
-                <div 
-                  className="flex transition-transform duration-500 ease-out"
-                  style={{ transform: `translateX(-${currentPartner * 100}%)` }}
-                >
-                  {partners.map((partner, idx) => (
-                    <div key={idx} className="w-full shrink-0">
-                      <article className="partner-content-card w-full">
-                        <div className="partner-content-card__header">
-                          <div className="partner-content-card__logo">
-                            <span className="text-[14px]">{partner.icon}</span>
-                          </div>
-                          <div className="partner-content-card__meta">
-                            <span className="partner-content-card__partner">{partner.name}</span>
-                            <span className="partner-content-card__type">{partner.type}</span>
-                          </div>
-                        </div>
-                        <h3 className="partner-content-card__title">{partner.title}</h3>
-                        <p className="partner-content-card__description">{partner.desc}</p>
-                        <a target="_blank" rel="noopener noreferrer" className="partner-content-card__action" href={partner.link}>
-                          <span>Acessar / Falar com</span>
-                          <ExternalLink size={14} />
-                        </a>
-                      </article>
-                    </div>
+                {/* Key Pillars Tags */}
+                <div className="flex flex-wrap items-center gap-2 pt-3 border-t border-[#E6E9EF]/10">
+                  <span className="font-mono text-xs text-[#A1AEC2]/70 mr-2">Destaques:</span>
+                  {['100% Gratuito', 'Back-End & APIs', 'Aulas de Inglês', 'Tech Girl', 'Open Source', 'Cupom: MARQUEZZDEV'].map((tag) => (
+                    <span 
+                      key={tag} 
+                      className={`px-2.5 py-1 rounded-lg text-xs font-mono font-medium ${
+                        tag.includes('Cupom') 
+                          ? 'badge-gold font-semibold'
+                          : 'badge-tech'
+                      }`}
+                    >
+                      {tag}
+                    </span>
                   ))}
                 </div>
+
               </div>
-              
-              <div className="flex items-center justify-center gap-2 mt-4 pb-2">
-                {partners.map((_, idx) => (
-                  <button
-                    key={idx}
-                    onClick={() => setCurrentPartner(idx)}
-                    className={`w-2 h-2 rounded-full transition-colors ${currentPartner === idx ? 'bg-[#d77e00]' : 'bg-[var(--medium-dark)]'}`}
-                    aria-label={`Slide ${idx + 1}`}
-                  />
-                ))}
+
+              {/* Right Column: Live Activity Monitor (Sticky on Desktop) */}
+              <div className="lg:col-span-5 lg:sticky lg:top-28 animate-subir">
+                <ActivityMonitor isTechGirl={isTechGirl} />
               </div>
+
             </div>
-          </section>
 
-          <footer className="footer">
-            <p>Todos os direitos reservados a Resource IT Marquez - 2025</p>
-            <p>v.1</p>
-          </footer>
+          </div>
+        </section>
 
-        </div>
+        {/* STATS & NUMBERS */}
+        <StatsSection isTechGirl={isTechGirl} />
+
+        {/* FRENTES & ECOSYSTEM */}
+        <FrentesSection 
+          isTechGirl={isTechGirl}
+          onOpenTechGirlModal={() => setIsTechGirlWarningModalOpen(true)}
+          onOpenProjectsModal={() => setIsProjectsModalOpen(true)}
+          onOpenAboutModal={() => setIsAboutModalOpen(true)}
+        />
+
+        {/* PROJECTS SECTION */}
+        <ProjectsSection 
+          isTechGirl={isTechGirl}
+          onOpenProjectsModal={() => setIsProjectsModalOpen(true)}
+        />
+
+        {/* SUPPORTERS & PARTNERS SHOWCASE */}
+        <section id="apoiadores" aria-labelledby="apoiadores-heading" className="py-16 md:py-24 border-t border-[#E6E9EF]/10">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            
+            <div className="flex flex-col items-center text-center mb-12">
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-[#E6E9EF]/10 bg-[#103653]/30 mb-3">
+                <span className="font-mono text-xs uppercase tracking-[0.2em] text-[#A1AEC2]">
+                  Parcerias & Benefícios
+                </span>
+              </div>
+              <h2 id="apoiadores-heading" className="font-display text-2xl md:text-4xl font-bold text-[#E6E9EF] tracking-tight">
+                Apoiadores e Parceiros Oficiais.
+              </h2>
+              <p className="text-sm md:text-base text-[#A1AEC2] max-w-xl mt-2 leading-relaxed">
+                Empresas e especialistas que apoiam a Resource IT Marquez com recursos, descontos e oportunidades exclusivas.
+              </p>
+            </div>
+
+            {/* Partners Grid */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
+              {partners.map((partner, idx) => (
+                <div 
+                  key={idx}
+                  className={`p-6 rounded-2xl card-surface flex flex-col justify-between group ${
+                    isTechGirl ? 'card-surface-techgirl' : ''
+                  }`}
+                >
+                  <div>
+                    <div className="flex items-center gap-3 mb-4">
+                      <div className="w-10 h-10 rounded-full bg-[#103653]/40 border border-[#E6E9EF]/10 flex items-center justify-center text-xl">
+                        {partner.icon}
+                      </div>
+                      <div>
+                        <h3 className="font-bold text-sm text-[#E6E9EF]">{partner.name}</h3>
+                        <span className="font-mono text-[10px] font-semibold uppercase tracking-wider text-[#E0A34A]">
+                          {partner.type}
+                        </span>
+                      </div>
+                    </div>
+
+                    <h4 className="text-sm font-semibold text-[#E6E9EF] mb-1">{partner.title}</h4>
+                    <p className="text-xs text-[#A1AEC2] leading-relaxed mb-4">{partner.desc}</p>
+
+                    {/* Highlighted Coupon Box if exists */}
+                    {partner.coupon && (
+                      <div className="mb-5 p-3 rounded-xl border border-dashed border-[#E0A34A]/30 bg-[#E0A34A]/5 flex items-center justify-between">
+                        <div className="flex items-center gap-2">
+                          <Tag size={14} className="text-[#E0A34A]" />
+                          <span className="font-mono text-xs font-bold text-[#E6E9EF] tracking-wider">
+                            {partner.coupon}
+                          </span>
+                        </div>
+                        <button
+                          type="button"
+                          onClick={() => handleCopyCoupon(partner.coupon!)}
+                          className={`px-2.5 py-1 rounded-md text-[11px] font-mono font-medium flex items-center gap-1 transition-all cursor-pointer ${
+                            copiedCoupon === partner.coupon
+                              ? 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/30'
+                              : 'bg-[#103653]/60 hover:bg-[#1D5171] text-[#E6E9EF] border border-[#E6E9EF]/10'
+                          }`}
+                        >
+                          {copiedCoupon === partner.coupon ? (
+                            <>
+                              <Check size={12} />
+                              <span>Copiado!</span>
+                            </>
+                          ) : (
+                            <>
+                              <Copy size={12} />
+                              <span>Copiar</span>
+                            </>
+                          )}
+                        </button>
+                      </div>
+                    )}
+                  </div>
+
+                  <a 
+                    href={partner.link} 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="btn-primary inline-flex items-center justify-between px-4 py-2.5 text-xs font-semibold text-white"
+                  >
+                    <span>Acessar benefício</span>
+                    <ExternalLink size={14} />
+                  </a>
+                </div>
+              ))}
+            </div>
+
+          </div>
+        </section>
+
+        {/* FOUNDER SECTION */}
+        <FounderSection isTechGirl={isTechGirl} />
+
       </main>
-    </>
+
+      {/* Full Footer */}
+      <Footer isTechGirl={isTechGirl} />
+
+    </div>
   );
 }
