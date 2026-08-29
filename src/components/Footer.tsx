@@ -177,17 +177,28 @@ export function Footer({ isTechGirl }: FooterProps) {
         </div>
 
         {/* Bottom bar */}
-        <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pt-8 text-xs font-mono text-[#A1AEC2]/60">
-          <p>© 2025 Resource IT Marquez. Todos os direitos reservados.</p>
+        <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pt-8 border-t border-[#E6E9EF]/10 text-xs font-mono text-[#A1AEC2]">
+          <div className="flex flex-col sm:flex-row items-center sm:items-start gap-1 sm:gap-3 text-center sm:text-left">
+            <p className="font-semibold text-[#E6E9EF]">
+              © {new Date().getFullYear()} Resource IT Marquez. Todos os direitos reservados.
+            </p>
+            <span className="hidden sm:inline text-[#A1AEC2]/40">•</span>
+            <p className="text-[#A1AEC2]/70 text-[11px]">
+              Fundada por Alyson Marquez
+            </p>
+          </div>
+
           <div className="flex items-center gap-4">
-            <span className="text-[#E0A34A]">By Dev, For Dev</span>
+            <span className="text-[#E0A34A] font-semibold text-[11px] px-2.5 py-0.5 rounded-full border border-[#E0A34A]/20 bg-[#E0A34A]/10">
+              ✦ By Dev, For Dev
+            </span>
             <button 
               type="button" 
               onClick={scrollToTop}
-              className="inline-flex items-center gap-1 text-[#A1AEC2] hover:text-[#E6E9EF] transition-colors cursor-pointer"
+              className="inline-flex items-center gap-1.5 text-xs text-[#A1AEC2] hover:text-[#E6E9EF] transition-colors cursor-pointer px-2.5 py-1 rounded-lg border border-[#E6E9EF]/10 hover:bg-[#103653]/40"
             >
               <span>Voltar ao topo</span>
-              <ArrowUp size={14} />
+              <ArrowUp size={13} />
             </button>
           </div>
         </div>
