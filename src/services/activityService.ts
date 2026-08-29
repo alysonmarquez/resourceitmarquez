@@ -1,4 +1,4 @@
-﻿export interface CommunityActivity {
+export interface CommunityActivity {
   id: string;
   type: 'member' | 'opportunity' | 'study' | 'english' | 'project' | 'techgirl' | 'github';
   text: string;
@@ -6,6 +6,13 @@
   timestamp: number;
   source: 'WhatsApp' | 'GitHub' | 'Discord' | 'Telegram' | 'Tech Girl' | 'Comunidade';
   actor?: string;
+}
+
+export interface NewsReactions {
+  fire: number;
+  rocket: number;
+  heart: number;
+  insight: number;
 }
 
 export interface TechNewsArticle {
@@ -18,6 +25,8 @@ export interface TechNewsArticle {
   publishedAt: string;
   author?: string;
   tabcoins?: number;
+  image?: string;
+  reactions?: NewsReactions;
 }
 
 export interface RealJobItem {
@@ -171,6 +180,22 @@ export async function fetchTechNews(): Promise<TechNewsArticle[]> {
     return (data.news || []) as TechNewsArticle[];
   } catch {
     return [];
+  }
+}
+
+// React to Tech News
+export async function reactToTechNews(newsId: string, emoji: 'fire' | 'rocket' | 'heart' | 'insight'): Promise<NewsReactions | null> {
+  try {
+    const res = await fetch(`http://localhost:3001/api/tech-news/${newsId}/react`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ emoji })
+    });
+    if (!res.ok) return null;
+    const data = await res.json();
+    return data.reactions as NewsReactions;
+  } catch {
+    return null;
   }
 }
 
