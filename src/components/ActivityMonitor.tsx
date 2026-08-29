@@ -11,9 +11,11 @@ import {
   RefreshCw,
   GitBranch,
   GitCommit,
-  CheckCircle
+  Flame,
+  CheckCircle2
 } from 'lucide-react';
 import { getRealActivities, CommunityActivity, fetchRealPresence, PresenceData } from '../services/activityService';
+import { CommunityReactions } from './CommunityReactions';
 
 interface ActivityMonitorProps {
   isTechGirl?: boolean;
@@ -61,43 +63,52 @@ export function ActivityMonitor({ isTechGirl }: ActivityMonitorProps) {
     return true;
   });
 
-  const getIcon = (item: CommunityActivity) => {
-    if (item.source === 'GitHub') return <GitCommit size={14} />;
-    switch (item.type) {
-      case 'member':
-        return <Users size={14} />;
-      case 'opportunity':
-        return <Briefcase size={14} />;
-      case 'english':
-        return <BookOpen size={14} />;
-      case 'techgirl':
-        return <Sparkles size={14} />;
-      case 'study':
-        return <Code2 size={14} />;
-      default:
-        return <Activity size={14} />;
-    }
-  };
-
-  const getIconStyle = (item: CommunityActivity) => {
+  // Category visual metadata based on official design system
+  const getActivityMeta = (item: CommunityActivity) => {
     if (item.source === 'GitHub') {
-      return 'border-[#246386]/40 bg-[#1D5171]/20 text-[#E6E9EF]';
+      return {
+        icon: <GitCommit size={14} />,
+        tag: 'GitHub Dev',
+        badgeClass: 'border-[#1D5171]/50 bg-[#1D5171]/20 text-[#38bdf8]',
+        cardBorder: 'border-l-[#1D5171]',
+        iconBg: 'bg-[#103653]/40 text-[#38bdf8] border-[#1D5171]/40'
+      };
     }
     if (item.type === 'techgirl') {
-      return 'border-[#967189]/40 bg-[#967189]/20 text-[#E6E9EF]';
-    }
-    if (item.type === 'member') {
-      return isTechGirl 
-        ? 'border-[#967189]/40 bg-[#967189]/20 text-[#E6E9EF]' 
-        : 'border-[#1D5171]/40 bg-[#1D5171]/20 text-[#E6E9EF]';
+      return {
+        icon: <Sparkles size={14} />,
+        tag: 'Tech Girl',
+        badgeClass: 'border-[#967189]/40 bg-[#967189]/20 text-[#E6E9EF]',
+        cardBorder: 'border-l-[#967189]',
+        iconBg: 'bg-[#967189]/20 text-[#E6E9EF] border-[#967189]/40'
+      };
     }
     if (item.type === 'opportunity') {
-      return 'border-[#E0A34A]/40 bg-[#E0A34A]/15 text-[#E0A34A]';
+      return {
+        icon: <Briefcase size={14} />,
+        tag: 'Vagas & Oportunidades',
+        badgeClass: 'border-[#E0A34A]/40 bg-[#E0A34A]/15 text-[#E0A34A]',
+        cardBorder: 'border-l-[#E0A34A]',
+        iconBg: 'bg-[#E0A34A]/15 text-[#E0A34A] border-[#E0A34A]/40'
+      };
     }
     if (item.type === 'english') {
-      return 'border-[#246386]/40 bg-[#246386]/20 text-[#E6E9EF]';
+      return {
+        icon: <BookOpen size={14} />,
+        tag: 'Aulas & Educação',
+        badgeClass: 'border-[#997074]/40 bg-[#997074]/20 text-[#E6E9EF]',
+        cardBorder: 'border-l-[#997074]',
+        iconBg: 'bg-[#997074]/20 text-[#E6E9EF] border-[#997074]/40'
+      };
     }
-    return 'border-[#E6E9EF]/10 bg-[#103653]/30 text-[#A1AEC2]';
+    // Default Community / WhatsApp
+    return {
+      icon: <Users size={14} />,
+      tag: 'Comunidade WhatsApp',
+      badgeClass: 'border-[#246386]/40 bg-[#246386]/20 text-[#E6E9EF]',
+      cardBorder: 'border-l-[#246386]',
+      iconBg: 'bg-[#103653]/40 text-[#246386] border-[#246386]/40'
+    };
   };
 
   return (
@@ -107,14 +118,10 @@ export function ActivityMonitor({ isTechGirl }: ActivityMonitorProps) {
       <div className="flex items-center justify-between px-1">
         <div className="flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.2em] text-[#A1AEC2]">
           <span className="relative flex h-2 w-2">
-            <span className={`absolute h-full w-full animate-ping rounded-full opacity-75 ${
-              isTechGirl ? 'bg-[#967189]' : 'bg-[#1D5171]'
-            }`} />
-            <span className={`relative h-2 w-2 rounded-full ${
-              isTechGirl ? 'bg-[#967189]' : 'bg-[#246386]'
-            }`} />
+            <span className="absolute h-full w-full animate-ping rounded-full bg-[#E0A34A] opacity-75" />
+            <span className="relative h-2 w-2 rounded-full bg-[#E0A34A]" />
           </span>
-          <span>Feed de Atividade Real</span>
+          <span className="font-semibold text-[#E6E9EF]">Feed de Atividade em Tempo Real</span>
         </div>
 
         {/* Real-time sync badge */}
@@ -139,35 +146,35 @@ export function ActivityMonitor({ isTechGirl }: ActivityMonitorProps) {
         </div>
       </div>
 
-      {/* Terminal Card Window */}
-      <div className={`overflow-hidden rounded-2xl border bg-[#071528] card-surface shadow-2xl ${
+      {/* Terminal Card Window with Subtle Liquid Iridescent Border Glow */}
+      <div className={`overflow-hidden rounded-2xl border bg-[#071528] card-surface shadow-2xl relative ${
         isTechGirl ? 'border-[#967189]/30 card-surface-techgirl' : 'border-[#E6E9EF]/10'
       }`}>
         
         {/* Terminal Header */}
-        <div className="flex items-center justify-between border-b border-[#E6E9EF]/10 px-4 py-3 bg-[#030C1E]/50">
+        <div className="flex items-center justify-between border-b border-[#E6E9EF]/10 px-4 py-3 bg-[#030C1E]/60">
           <div className="flex items-center gap-2">
-            <Radio size={14} className={isTechGirl ? 'text-[#967189] animate-pulse' : 'text-[#246386] animate-pulse'} />
+            <Radio size={14} className="text-[#E0A34A] animate-pulse" />
             <span className="font-mono text-xs text-[#E6E9EF]">
-              resourceit <span className="text-[#A1AEC2]/40">·</span> logs em tempo real
+              resourceit <span className="text-[#A1AEC2]/40">·</span> webhooks ativos
             </span>
           </div>
           
           <div className="flex items-center gap-1.5" aria-hidden="true">
-            <span className="h-2 w-2 rounded-full bg-[#E6E9EF]/15" />
-            <span className="h-2 w-2 rounded-full bg-[#E6E9EF]/15" />
-            <span className="h-2 w-2 rounded-full bg-emerald-500/60" />
+            <span className="h-2 w-2 rounded-full bg-[#1D5171]" />
+            <span className="h-2 w-2 rounded-full bg-[#967189]" />
+            <span className="h-2 w-2 rounded-full bg-[#E0A34A]" />
           </div>
         </div>
 
         {/* Filter Tabs */}
-        <div className="flex items-center gap-1.5 px-4 py-2 border-b border-[#E6E9EF]/10 bg-[#030C1E]/30 overflow-x-auto text-[11px] font-mono">
+        <div className="flex items-center gap-1.5 px-4 py-2 border-b border-[#E6E9EF]/10 bg-[#030C1E]/40 overflow-x-auto text-[11px] font-mono">
           <button
             type="button"
             onClick={() => setFilter('all')}
             className={`px-2.5 py-1 rounded-md transition-all cursor-pointer ${
               filter === 'all' 
-                ? (isTechGirl ? 'bg-[#967189] text-white font-semibold' : 'bg-[#1D5171] text-[#E6E9EF] font-semibold')
+                ? 'btn-primary text-white font-semibold shadow-sm'
                 : 'text-[#A1AEC2] hover:text-[#E6E9EF] hover:bg-[#103653]/40'
             }`}
           >
@@ -178,7 +185,7 @@ export function ActivityMonitor({ isTechGirl }: ActivityMonitorProps) {
             onClick={() => setFilter('community')}
             className={`px-2.5 py-1 rounded-md transition-all cursor-pointer ${
               filter === 'community' 
-                ? (isTechGirl ? 'bg-[#967189] text-white font-semibold' : 'bg-[#1D5171] text-[#E6E9EF] font-semibold')
+                ? 'btn-primary text-white font-semibold shadow-sm'
                 : 'text-[#A1AEC2] hover:text-[#E6E9EF] hover:bg-[#103653]/40'
             }`}
           >
@@ -189,7 +196,7 @@ export function ActivityMonitor({ isTechGirl }: ActivityMonitorProps) {
             onClick={() => setFilter('github')}
             className={`px-2.5 py-1 rounded-md transition-all cursor-pointer ${
               filter === 'github' 
-                ? (isTechGirl ? 'bg-[#967189] text-white font-semibold' : 'bg-[#1D5171] text-[#E6E9EF] font-semibold')
+                ? 'btn-primary text-white font-semibold shadow-sm'
                 : 'text-[#A1AEC2] hover:text-[#E6E9EF] hover:bg-[#103653]/40'
             }`}
           >
@@ -199,7 +206,7 @@ export function ActivityMonitor({ isTechGirl }: ActivityMonitorProps) {
 
         {/* Logs Feed Container */}
         <div 
-          className="divide-y divide-[#E6E9EF]/5 max-h-[360px] overflow-y-auto"
+          className="divide-y divide-[#E6E9EF]/5 max-h-[350px] overflow-y-auto"
           tabIndex={0}
           aria-label="Feed de atividades da comunidade"
         >
@@ -208,53 +215,64 @@ export function ActivityMonitor({ isTechGirl }: ActivityMonitorProps) {
               {isLoading ? 'Sincronizando atividades reais...' : 'Nenhum evento registrado no momento.'}
             </div>
           ) : (
-            filteredActivities.map((item) => (
-              <div 
-                key={item.id} 
-                className="flex items-start gap-3 p-3.5 hover:bg-[#103653]/30 transition-colors"
-              >
-                {/* Source/Type Icon */}
-                <div className={`mt-0.5 p-1.5 rounded-lg border shrink-0 ${getIconStyle(item)}`}>
-                  {getIcon(item)}
-                </div>
-
-                {/* Content */}
-                <div className="flex-1 min-w-0">
-                  <div className="flex items-center justify-between gap-2 mb-1">
-                    <span className="font-mono text-[11px] text-[#A1AEC2] truncate">
-                      {item.actor ? item.actor : item.source}
-                    </span>
-                    <span className="font-mono text-[10px] text-[#A1AEC2]/60 shrink-0">
-                      {item.time}
-                    </span>
+            filteredActivities.map((item) => {
+              const meta = getActivityMeta(item);
+              return (
+                <div 
+                  key={item.id} 
+                  className={`flex items-start gap-3 p-3.5 hover:bg-[#103653]/30 transition-all border-l-2 ${meta.cardBorder}`}
+                >
+                  {/* Source/Type Icon */}
+                  <div className={`mt-0.5 p-2 rounded-xl border shrink-0 ${meta.iconBg}`}>
+                    {meta.icon}
                   </div>
 
-                  <p className="text-xs text-[#E6E9EF] leading-relaxed break-words font-sans">
-                    {item.text}
-                  </p>
-
-                  {item.source === 'GitHub' && (
-                    <div className="mt-1.5 flex items-center gap-1 font-mono text-[10px] text-[#246386]">
-                      <GitBranch size={10} />
-                      <span>github.com/alysonmarquez</span>
+                  {/* Content */}
+                  <div className="flex-1 min-w-0">
+                    <div className="flex items-center justify-between gap-2 mb-1">
+                      <div className="flex items-center gap-2 truncate">
+                        <span className="font-mono text-xs font-bold text-[#E6E9EF] truncate">
+                          {item.actor ? item.actor : item.source}
+                        </span>
+                        <span className={`font-mono text-[9px] px-1.5 py-0.2 rounded border uppercase font-medium ${meta.badgeClass}`}>
+                          {meta.tag}
+                        </span>
+                      </div>
+                      <span className="font-mono text-[10px] text-[#A1AEC2]/60 shrink-0">
+                        {item.time}
+                      </span>
                     </div>
-                  )}
+
+                    <p className="text-xs text-[#E6E9EF] leading-relaxed break-words font-sans">
+                      {item.text}
+                    </p>
+
+                    {item.source === 'GitHub' && (
+                      <div className="mt-1.5 flex items-center gap-1 font-mono text-[10px] text-[#38bdf8]">
+                        <GitBranch size={10} />
+                        <span>github.com/alysonmarquez</span>
+                      </div>
+                    )}
+                  </div>
                 </div>
-              </div>
-            ))
+              );
+            })
           )}
         </div>
 
         {/* Terminal Footer */}
-        <div className="px-4 py-2.5 bg-[#030C1E]/60 border-t border-[#E6E9EF]/10 flex items-center justify-between text-[10px] font-mono text-[#A1AEC2]">
+        <div className="px-4 py-2.5 bg-[#030C1E]/70 border-t border-[#E6E9EF]/10 flex items-center justify-between text-[10px] font-mono text-[#A1AEC2]">
           <span className="flex items-center gap-1.5">
-            <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
+            <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
             Conectado aos webhooks oficiais
           </span>
-          <span>Sync: {lastSync}</span>
+          <span className="text-[#E0A34A]">Sync: {lastSync}</span>
         </div>
 
       </div>
+
+      {/* Interactive Live Community Reactions */}
+      <CommunityReactions />
 
     </div>
   );

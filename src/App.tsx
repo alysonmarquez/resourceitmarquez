@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+﻿import { useState, useEffect } from 'react';
 import { 
   Terminal,
   ExternalLink,
@@ -14,7 +14,9 @@ import {
   Copy,
   Check,
   Tag,
-  Shirt
+  Shirt,
+  Flame,
+  Zap
 } from 'lucide-react';
 import { Navbar } from './components/Navbar';
 import { StatsSection } from './components/StatsSection';
@@ -23,6 +25,7 @@ import { ProjectsSection } from './components/ProjectsSection';
 import { ActivityMonitor } from './components/ActivityMonitor';
 import { FounderSection } from './components/FounderSection';
 import { Footer } from './components/Footer';
+import { HeroIridescentAura } from './components/HeroIridescentAura';
 import { ExperienceModal } from './components/ExperienceModal';
 import { ProjectsModal } from './components/ProjectsModal';
 import { AboutModal } from './components/AboutModal';
@@ -141,37 +144,37 @@ export default function App() {
       {/* Main Content Area */}
       <main id="inicio" className="relative z-10">
         
-        {/* HERO SECTION (2 Columns on Desktop) */}
-        <section className="pt-28 md:pt-36 pb-16 md:pb-24">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* HERO SECTION with Dynamic Organic Iridescent Wave Background */}
+        <section className="pt-28 md:pt-36 pb-16 md:pb-24 relative">
+          
+          {/* Organic Iridescent Wave & Light Trails directly from Logo */}
+          <HeroIridescentAura isTechGirl={isTechGirl} />
+
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
             
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-start">
               
               {/* Left Column: Hero Headlines & Action Buttons */}
               <div className="lg:col-span-7 flex flex-col gap-6 animate-subir">
                 
-                {/* Kicker Pill Badge */}
+                {/* Kicker Pill Badge with Gold Accent */}
                 <div className="flex items-center gap-3">
-                  <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-[#E6E9EF]/10 bg-[#103653]/30 backdrop-blur-md">
-                    <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse-dot" />
-                    <span className="font-mono text-xs font-medium text-[#E6E9EF]">
+                  <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-[#E6E9EF]/15 bg-[#103653]/40 backdrop-blur-md shadow-lg">
+                    <span className="w-2 h-2 rounded-full bg-[#E0A34A] animate-pulse-dot" />
+                    <span className="font-mono text-xs font-semibold text-[#E6E9EF]">
                       +{totalMembers.toLocaleString('pt-BR')} Conexões Reais Sincronizadas
                     </span>
                   </div>
 
-                  <span className="hidden sm:inline-block font-mono text-xs text-[#A1AEC2]/70">
+                  <span className="hidden sm:inline-block font-mono text-xs text-[#A1AEC2]/80">
                     Desde 07/05/2025
                   </span>
                 </div>
 
-                {/* Main Headline */}
+                {/* Main Headline with Logo-Inspired Organic Spectrum Gradient */}
                 <h1 className="font-display text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-[#E6E9EF] leading-[1.08]">
                   Construa sua carreira em tecnologia com quem{' '}
-                  <span className={`bg-gradient-to-r bg-clip-text text-transparent ${
-                    isTechGirl 
-                      ? 'from-[#967189] via-[#997074] to-[#E6E9EF]' 
-                      : 'from-[#1D5171] via-[#246386] to-[#E6E9EF]'
-                  }`}>
+                  <span className={isTechGirl ? "text-logo-spectrum" : "text-logo-spectrum"}>
                     está no jogo.
                   </span>
                 </h1>
@@ -182,12 +185,12 @@ export default function App() {
                 </p>
 
                 {/* Action CTA Buttons */}
-                <div className="flex flex-col sm:flex-row flex-wrap items-stretch sm:items-center gap-3 pt-2">
+                <div className="flex flex-col sm:flex-row flex-wrap items-stretch sm:items-center gap-3.5 pt-2">
                   <a 
                     href="https://chat.whatsapp.com/LWFPj7qWEE11VCgcEvchHi" 
                     target="_blank" 
                     rel="noopener noreferrer"
-                    className="btn-primary inline-flex items-center justify-center gap-2.5 px-7 py-3.5 text-sm"
+                    className="btn-primary inline-flex items-center justify-center gap-2.5 px-7 py-3.5 text-sm cursor-pointer"
                   >
                     <MessageCircle size={18} />
                     <span>Entrar no WhatsApp</span>
@@ -198,7 +201,7 @@ export default function App() {
                     <button 
                       type="button" 
                       onClick={() => setIsTechGirlWarningModalOpen(true)}
-                      className="inline-flex items-center justify-center gap-2.5 px-6 py-3.5 rounded-xl font-semibold text-sm text-[#E6E9EF] border border-[#967189]/40 bg-[#967189]/15 hover:bg-[#967189]/25 transition-all cursor-pointer"
+                      className="inline-flex items-center justify-center gap-2.5 px-6 py-3.5 rounded-xl font-semibold text-sm text-[#E6E9EF] border border-[#967189]/40 bg-[#967189]/15 hover:bg-[#967189]/25 transition-all cursor-pointer shadow-md"
                     >
                       <Sparkles size={18} className="text-[#967189]" />
                       <span>Comunidade Tech Girl</span>
@@ -208,7 +211,7 @@ export default function App() {
                       href="https://discord.gg/6P8Qka2zk" 
                       target="_blank" 
                       rel="noopener noreferrer"
-                      className="btn-secondary inline-flex items-center justify-center gap-2.5 px-6 py-3.5 text-sm"
+                      className="btn-secondary inline-flex items-center justify-center gap-2.5 px-6 py-3.5 text-sm cursor-pointer"
                     >
                       <Gamepad2 size={18} />
                       <span>Ingressar no Discord</span>
@@ -233,7 +236,9 @@ export default function App() {
                       key={tag} 
                       className={`px-2.5 py-1 rounded-lg text-xs font-mono font-medium ${
                         tag.includes('Cupom') 
-                          ? 'badge-gold font-semibold'
+                          ? 'badge-gold font-semibold shadow-sm'
+                          : tag.includes('Tech Girl')
+                          ? 'badge-rose font-medium'
                           : 'badge-tech'
                       }`}
                     >
@@ -244,7 +249,7 @@ export default function App() {
 
               </div>
 
-              {/* Right Column: Live Activity Monitor (Sticky on Desktop) */}
+              {/* Right Column: Live Activity Monitor + Interactive Reactions (Sticky on Desktop) */}
               <div className="lg:col-span-5 lg:sticky lg:top-28 animate-subir">
                 <ActivityMonitor isTechGirl={isTechGirl} />
               </div>
@@ -316,7 +321,7 @@ export default function App() {
 
                     {/* Highlighted Coupon Box if exists */}
                     {partner.coupon && (
-                      <div className="mb-5 p-3 rounded-xl border border-dashed border-[#E0A34A]/30 bg-[#E0A34A]/5 flex items-center justify-between">
+                      <div className="mb-5 p-3 rounded-xl border border-dashed border-[#E0A34A]/40 bg-[#E0A34A]/10 flex items-center justify-between">
                         <div className="flex items-center gap-2">
                           <Tag size={14} className="text-[#E0A34A]" />
                           <span className="font-mono text-xs font-bold text-[#E6E9EF] tracking-wider">

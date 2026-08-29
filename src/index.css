@@ -1,4 +1,4 @@
-@import "tailwindcss";
+﻿@import "tailwindcss";
 
 @layer base {
   :root {
@@ -6,7 +6,7 @@
     --font-body: 'Inter', system-ui, -apple-system, sans-serif;
     --font-mono: 'JetBrains Mono', monospace;
 
-    /* RESOURCE IT MARQUEZ - PALETA OFICIAL */
+    /* RESOURCE IT MARQUEZ - PALETA OFICIAL DO LOGO */
     --midnight-navy: #030C1E; /* 65% Principal */
     --deep-ocean: #103653;    /* Secundário de profundidade */
     --ocean-blue: #1D5171;    /* Azul petróleo dos botões/links */
@@ -19,7 +19,7 @@
     --background: #030C1E;
     --foreground: #E6E9EF;
     --card: #071528;
-    --card-hover: #0c233c;
+    --card-hover: #0d2542;
     --border: rgba(230, 233, 239, 0.08);
     --border-accent: rgba(29, 81, 113, 0.5);
   }
@@ -70,17 +70,50 @@
     transform: scale(1);
   }
   50% {
-    opacity: 0.4;
+    opacity: 0.35;
     transform: scale(0.85);
   }
 }
 
-@keyframes subtleShimmer {
+@keyframes floatAura {
+  0%, 100% {
+    transform: translate(0, 0) scale(1);
+  }
+  50% {
+    transform: translate(-15px, -20px) scale(1.05);
+  }
+}
+
+@keyframes floatAuraRight {
+  0%, 100% {
+    transform: translate(0, 0) rotate(0deg) scale(1);
+  }
+  50% {
+    transform: translate(20px, 15px) rotate(3deg) scale(1.08);
+  }
+}
+
+@keyframes breatheGlow {
+  0%, 100% {
+    opacity: 0.5;
+  }
+  50% {
+    opacity: 0.85;
+  }
+}
+
+@keyframes popReaction {
   0% {
-    background-position: -200% 0;
+    transform: scale(0.8) translateY(0);
+    opacity: 0;
+  }
+  20% {
+    transform: scale(1.3) translateY(-10px);
+    opacity: 1;
   }
   100% {
-    background-position: 200% 0;
+    transform: scale(1) translateY(-35px);
+    opacity: 0;
   }
 }
 
@@ -92,6 +125,18 @@
   animation: pulseDot 2s ease-in-out infinite;
 }
 
+.animate-float-aura {
+  animation: floatAura 18s ease-in-out infinite;
+}
+
+.animate-float-aura-right {
+  animation: floatAuraRight 22s ease-in-out infinite;
+}
+
+.animate-breathe {
+  animation: breatheGlow 8s ease-in-out infinite;
+}
+
 .font-display {
   font-family: var(--font-display);
 }
@@ -100,18 +145,36 @@
   font-family: var(--font-mono);
 }
 
-/* Background Atmosphere - Dark Clean & Subtle Spectrum Aura */
+/* Signature Logo Multi-Spectrum Text Gradient */
+.text-logo-spectrum {
+  background: linear-gradient(135deg, #246386 0%, #967189 30%, #997074 65%, #E0A34A 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
+}
+
+.text-gold-spectrum {
+  background: linear-gradient(135deg, #E0A34A 0%, #fcd34d 50%, #997074 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Background Atmosphere - Dark Clean & Iridescent Molten Wave Aura */
 .hero-aura-bg {
   position: fixed;
   inset: 0;
   pointer-events: none;
   background-color: #030C1E;
   background-image:
-    radial-gradient(ellipse 90% 55% at 50% -10%, rgba(29, 81, 113, 0.35), transparent 70%),
-    radial-gradient(ellipse 65% 45% at 85% 30%, rgba(16, 54, 83, 0.4), transparent 60%),
-    radial-gradient(ellipse 55% 45% at 15% 65%, rgba(150, 113, 137, 0.12), transparent 55%),
-    radial-gradient(ellipse 45% 35% at 80% 85%, rgba(224, 163, 74, 0.08), transparent 50%),
-    radial-gradient(ellipse 70% 40% at 50% 100%, rgba(16, 54, 83, 0.3), transparent 70%);
+    radial-gradient(ellipse 90% 60% at 50% -10%, rgba(29, 81, 113, 0.35), transparent 70%),
+    radial-gradient(ellipse 70% 50% at 88% 25%, rgba(224, 163, 74, 0.14), transparent 55%),
+    radial-gradient(ellipse 60% 45% at 92% 50%, rgba(150, 113, 137, 0.18), transparent 50%),
+    radial-gradient(ellipse 65% 45% at 85% 75%, rgba(153, 112, 116, 0.14), transparent 55%),
+    radial-gradient(ellipse 50% 50% at 10% 65%, rgba(36, 99, 134, 0.16), transparent 55%),
+    radial-gradient(ellipse 70% 40% at 50% 100%, rgba(16, 54, 83, 0.35), transparent 70%);
   z-index: 0;
 }
 
@@ -121,86 +184,107 @@
   pointer-events: none;
   background-color: #030C1E;
   background-image:
-    radial-gradient(ellipse 90% 55% at 50% -10%, rgba(150, 113, 137, 0.3), transparent 70%),
-    radial-gradient(ellipse 65% 45% at 85% 30%, rgba(153, 112, 116, 0.25), transparent 60%),
-    radial-gradient(ellipse 55% 45% at 15% 65%, rgba(36, 99, 134, 0.2), transparent 55%),
-    radial-gradient(ellipse 70% 40% at 50% 100%, rgba(16, 54, 83, 0.3), transparent 70%);
+    radial-gradient(ellipse 90% 60% at 50% -10%, rgba(150, 113, 137, 0.35), transparent 70%),
+    radial-gradient(ellipse 70% 50% at 88% 30%, rgba(224, 163, 74, 0.16), transparent 55%),
+    radial-gradient(ellipse 60% 45% at 15% 65%, rgba(36, 99, 134, 0.2), transparent 55%),
+    radial-gradient(ellipse 70% 40% at 50% 100%, rgba(16, 54, 83, 0.35), transparent 70%);
   z-index: 0;
 }
 
 .noise-overlay {
   position: fixed;
   inset: 0;
-  opacity: 0.02;
+  opacity: 0.022;
   pointer-events: none;
   background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='a'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23a)'/%3E%3C/svg%3E");
   z-index: 1;
 }
 
-/* Card Surface - Official Deep Ocean & Navy */
+/* Card Surface - Deep Ocean with Iridescent Highlight */
 .card-surface {
   background: #071528;
   border: 1px solid rgba(230, 233, 239, 0.08);
   border-radius: 20px;
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
   transition: all 0.25s cubic-bezier(0.2, 0.8, 0.2, 1);
+  position: relative;
+}
+
+.card-surface::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 20px;
+  padding: 1px;
+  background: linear-gradient(135deg, rgba(230, 233, 239, 0.12) 0%, rgba(36, 99, 134, 0.2) 50%, rgba(224, 163, 74, 0.15) 100%);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+  opacity: 0.5;
+  transition: opacity 0.3s ease;
 }
 
 .card-surface:hover {
-  background: #0c233c;
-  border-color: rgba(36, 99, 134, 0.5);
+  background: #0d2542;
   transform: translateY(-2px);
-  box-shadow: 0 12px 30px -8px rgba(3, 12, 30, 0.8), 0 0 20px -5px rgba(29, 81, 113, 0.2);
+  box-shadow: 0 16px 36px -8px rgba(3, 12, 30, 0.85), 0 0 25px -4px rgba(36, 99, 134, 0.25);
+}
+
+.card-surface:hover::before {
+  opacity: 1;
 }
 
 .card-surface-techgirl:hover {
-  background: #0e1e30;
-  border-color: rgba(150, 113, 137, 0.5);
+  background: #112238;
   transform: translateY(-2px);
-  box-shadow: 0 12px 30px -8px rgba(3, 12, 30, 0.8), 0 0 20px -5px rgba(150, 113, 137, 0.2);
+  box-shadow: 0 16px 36px -8px rgba(3, 12, 30, 0.85), 0 0 25px -4px rgba(150, 113, 137, 0.3);
 }
 
-/* Official Primary Button: Ocean Blue -> Tech Blue */
+/* Official Upgraded Primary Button: Ocean Blue -> Tech Blue with Gold Aura on hover */
 .btn-primary {
+  position: relative;
   background: linear-gradient(135deg, #1D5171 0%, #246386 100%);
   color: #E6E9EF;
-  border: 1px solid rgba(230, 233, 239, 0.15);
+  border: 1px solid rgba(230, 233, 239, 0.18);
   border-radius: 12px;
   font-weight: 600;
-  transition: all 0.2s ease;
-  box-shadow: 0 4px 14px -2px rgba(29, 81, 113, 0.35);
+  transition: all 0.25s ease;
+  box-shadow: 0 4px 16px -2px rgba(29, 81, 113, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.2);
 }
 
 .btn-primary:hover {
-  background: #246386;
-  border-color: rgba(230, 233, 239, 0.3);
+  background: linear-gradient(135deg, #246386 0%, #1D5171 100%);
+  border-color: rgba(224, 163, 74, 0.5);
   transform: translateY(-1px);
-  box-shadow: 0 6px 20px -2px rgba(36, 99, 134, 0.45);
+  box-shadow: 0 8px 25px -3px rgba(36, 99, 134, 0.5), 0 0 20px -2px rgba(224, 163, 74, 0.35);
+  color: #FFFFFF;
 }
 
 /* Secondary Button */
 .btn-secondary {
-  background: rgba(16, 54, 83, 0.4);
+  background: rgba(16, 54, 83, 0.45);
   color: #E6E9EF;
   border: 1px solid rgba(230, 233, 239, 0.12);
   border-radius: 12px;
   font-weight: 600;
-  transition: all 0.2s ease;
+  transition: all 0.25s ease;
+  backdrop-filter: blur(8px);
 }
 
 .btn-secondary:hover {
-  background: rgba(29, 81, 113, 0.5);
-  border-color: rgba(230, 233, 239, 0.25);
+  background: rgba(29, 81, 113, 0.6);
+  border-color: rgba(230, 233, 239, 0.3);
   color: #FFFFFF;
   transform: translateY(-1px);
 }
 
-/* Gold Accent Badge / Button */
+/* Badges with Logo Palette */
 .badge-gold {
   background: rgba(224, 163, 74, 0.12);
   color: #E0A34A;
-  border: 1px solid rgba(224, 163, 74, 0.3);
+  border: 1px solid rgba(224, 163, 74, 0.35);
 }
 
 .badge-tech {
@@ -210,26 +294,15 @@
 }
 
 .badge-rose {
-  background: rgba(150, 113, 137, 0.15);
+  background: rgba(150, 113, 137, 0.16);
   color: #E6E9EF;
   border: 1px solid rgba(150, 113, 137, 0.35);
 }
 
-/* Text Highlights */
-.text-gold {
-  color: #E0A34A;
-}
-
-.text-ice {
+.badge-coral {
+  background: rgba(153, 112, 116, 0.16);
   color: #E6E9EF;
-}
-
-.text-ocean {
-  color: #246386;
-}
-
-.text-rose {
-  color: #967189;
+  border: 1px solid rgba(153, 112, 116, 0.35);
 }
 
 /* Modals */
