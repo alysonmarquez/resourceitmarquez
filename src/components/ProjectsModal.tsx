@@ -62,45 +62,58 @@ export function ProjectsModal({ isOpen, onClose, isTechGirl }: ProjectsModalProp
   ];
 
   return (
-    <>
-      <div className="modal__backdrop" onClick={onClose} />
-      <div className="modal-box animate-subir max-w-xl">
-        <div className="modal__header">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-[#030C1E]/85 backdrop-blur-md animate-subir">
+      <div className="fixed inset-0 -z-10" onClick={onClose} aria-hidden="true" />
+      
+      <div 
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="projects-modal-title"
+        className="w-full max-w-xl bg-[#071528] border border-[#E6E9EF]/15 rounded-3xl p-6 sm:p-8 max-h-[85vh] overflow-y-auto shadow-2xl relative"
+      >
+        <div className="flex items-center justify-between pb-4 border-b border-[#E6E9EF]/10 mb-6">
           <div className="flex items-center gap-2.5">
             <div className={`w-2.5 h-2.5 rounded-full ${isTechGirl ? 'bg-[#967189]' : 'bg-[#1D5171]'}`} />
-            <h2 className="modal__title">Projetos em Andamento ({projects.length})</h2>
+            <h2 id="projects-modal-title" className="font-display text-lg sm:text-xl font-bold text-[#E6E9EF]">
+              Projetos em Andamento ({projects.length})
+            </h2>
           </div>
-          <button className="modal__close-btn" onClick={onClose} aria-label="Fechar">
+          <button 
+            type="button" 
+            className="p-2 rounded-xl text-[#A1AEC2] hover:text-[#E6E9EF] hover:bg-[#103653]/40 transition-colors cursor-pointer" 
+            onClick={onClose} 
+            aria-label="Fechar"
+          >
             <X size={18} />
           </button>
         </div>
         
-        <div className="modal__body space-y-4 max-h-[70vh] overflow-y-auto">
+        <div className="space-y-4 text-left">
           <p className="text-xs text-[#A1AEC2]">
             Iniciativas criadas por membros da comunidade para prática real, trabalho em equipe e geração de portfólio.
           </p>
 
-          <div className="flex flex-col gap-2.5">
+          <div className="flex flex-col gap-3">
             {projects.map((project, index) => (
               <div 
                 key={index}
-                className="flex flex-col gap-2 p-3.5 border border-[#E6E9EF]/10 rounded-xl bg-[#103653]/20 hover:bg-[#103653]/40 transition-all"
+                className="flex flex-col gap-2 p-4 border border-[#E6E9EF]/10 rounded-2xl bg-[#103653]/20 hover:bg-[#103653]/40 transition-all"
               >
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-2">
-                    <Terminal size={15} className={isTechGirl ? 'text-[#967189]' : 'text-[#246386]'} />
+                    <Terminal size={16} className={isTechGirl ? 'text-[#967189]' : 'text-[#246386]'} />
                     <span className="font-semibold text-[#E6E9EF] text-sm">{project.name}</span>
                   </div>
-                  <span className="font-mono text-[10px] px-2 py-0.5 rounded-md bg-emerald-500/10 text-emerald-300 border border-emerald-500/30">
+                  <span className="font-mono text-[10px] px-2.5 py-0.5 rounded-md bg-emerald-500/10 text-emerald-300 border border-emerald-500/30">
                     {project.status}
                   </span>
                 </div>
                 
-                <p className="text-xs text-[#A1AEC2] leading-normal">
+                <p className="text-xs text-[#A1AEC2] leading-relaxed">
                   {project.desc}
                 </p>
 
-                <div className="flex items-center justify-between pt-1 border-t border-[#E6E9EF]/10">
+                <div className="flex items-center justify-between pt-2 border-t border-[#E6E9EF]/10">
                   <div className="flex items-center gap-1.5">
                     <GitBranch size={12} className="text-[#A1AEC2]/60" />
                     <span className="font-mono text-[11px] text-[#A1AEC2]">
@@ -123,6 +136,6 @@ export function ProjectsModal({ isOpen, onClose, isTechGirl }: ProjectsModalProp
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 }

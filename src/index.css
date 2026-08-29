@@ -1,4 +1,4 @@
-﻿@import "tailwindcss";
+@import "tailwindcss";
 
 @layer base {
   :root {
@@ -242,45 +242,7 @@
   z-index: 100;
 }
 
-.modal-box {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 90%;
-  max-width: 540px;
-  background: #071528;
-  border: 1px solid rgba(230, 233, 239, 0.12);
-  border-radius: 24px;
-  padding: 1.75rem;
-  z-index: 101;
-  box-shadow: 0 25px 60px -15px rgba(3, 12, 30, 0.95), 0 0 35px -5px rgba(29, 81, 113, 0.25);
-}
-
-.modal__header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding-bottom: 1rem;
-  border-bottom: 1px solid rgba(230, 233, 239, 0.08);
-}
-
-.modal__title {
-  font-family: var(--font-display);
-  font-size: 1.15rem;
-  font-weight: 700;
-  color: #E6E9EF;
-}
-
-.modal__close-btn {
-  color: #94A3B8;
-  cursor: pointer;
-  padding: 0.35rem;
-  border-radius: 8px;
-  transition: color 0.15s;
-}
-
-.modal__close-btn:hover {
-  color: #E6E9EF;
-  background: rgba(230, 233, 239, 0.06);
+.modal-dialog {
+  max-height: 85vh;
+  overflow-y: auto;
 }
