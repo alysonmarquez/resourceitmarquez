@@ -26,15 +26,14 @@ export interface OpportunityItem {
 }
 
 export const tickerItems: TickerItem[] = [
-  { id: 't1', text: 'Novo membro conectou no Back-End', category: 'community', tag: 'WhatsApp' },
-  { id: 't2', text: 'Vaga Remota Node.js Jr compartilhada', category: 'opportunity', tag: 'Vagas' },
+  { id: 't1', text: 'Novo membro conectou na Comunidade', category: 'community', tag: 'WhatsApp' },
+  { id: 't2', text: 'Vaga Remota Node.js Jr compartilhada no grupo de Vagas', category: 'opportunity', tag: 'Vagas' },
   { id: 't3', text: 'RecruitAI recebeu novo commit no GitHub', category: 'dev', tag: 'Open Source' },
   { id: 't4', text: 'Nova participante acolhida no Tech Girl', category: 'techgirl', tag: 'Tech Girl' },
   { id: 't5', text: 'Aula de conversação em Inglês confirmada para 19h', category: 'education', tag: 'Aulas' },
   { id: 't6', text: '+840 conexões ativas na comunidade', category: 'community', tag: 'Impacto' },
   { id: 't7', text: 'Projeto SpeedBet abriu vagas para colaboradores C# .NET', category: 'dev', tag: 'Projetos' },
-  { id: 't8', text: 'Arena Xeque iniciou testes de WebSockets multiplayer', category: 'dev', tag: 'Full Stack' },
-  { id: 't9', text: 'Cupom MARQUEZZDEV disponível na Zaroc e Rocketseat', category: 'opportunity', tag: 'Benefício' }
+  { id: 't8', text: 'Arena Xeque iniciou testes de WebSockets multiplayer', category: 'dev', tag: 'Full Stack' }
 ];
 
 export const heroRotatingWords: string[] = [
@@ -91,11 +90,11 @@ export const liveNowEvents: LiveNowEvent[] = [
     id: 'ln2',
     icon: '💼',
     title: 'Oportunidades Jr & Estágio',
-    subtitle: 'Novas posições remotas e freelas postados no canal de oportunidades.',
+    subtitle: 'Novas posições remotas e freelas postados no canal oficial de vagas.',
     category: 'Vagas & Carreira',
     time: 'Há 12 min',
     badgeColor: 'border-[#E0A34A]/40 bg-[#E0A34A]/20 text-[#E0A34A]',
-    link: 'https://chat.whatsapp.com/Hwfpb0H9atAHnKom9HMq4s'
+    link: 'https://chat.whatsapp.com/LbQSl8Q2tjcGluF2He3zI6'
   },
   {
     id: 'ln3',
@@ -129,19 +128,9 @@ export const liveNowEvents: LiveNowEvent[] = [
   }
 ];
 
-export const opportunitiesList: OpportunityItem[] = [
-  { id: 'op1', role: 'Dev Back-End Jr', level: 'Júnior', type: 'Remoto CLT', tech: 'Node.js / TypeScript', isHot: true },
-  { id: 'op2', role: 'Full Stack Developer', level: 'Pleno', type: 'Híbrido PJ', tech: 'React / C# .NET' },
-  { id: 'op3', role: 'Estágio em Engenharia de Software', level: 'Estágio', type: 'Remoto', tech: 'Java / SQL', isHot: true },
-  { id: 'op4', role: 'Front-End React / Next.js', level: 'Júnior', type: 'Remoto PJ', tech: 'Next.js 15 / Tailwind' },
-  { id: 'op5', role: 'Desenvolvedor Python & IA', level: 'Pleno', type: 'Remoto Internacional', tech: 'FastAPI / Gemini API', isHot: true },
-  { id: 'op6', role: 'Freelance API de Pagamentos', level: 'Freela', type: 'Projeto Fechado', tech: 'Webhooks / PostgreSQL' }
-];
-
 export const terminalLogs = [
   { command: 'resource@community:~$ connect --all-nodes', output: '✓ 840 conexões sincronizadas em tempo real' },
   { command: 'resource@community:~$ status --projects', output: '✓ RecruitAI, Arena Xeque, Enge PRO, SpeedBet [ATIVOS]' },
   { command: 'resource@community:~$ check --channels', output: '✓ WhatsApp, Discord, Telegram [OPERACIONAIS 24/7]' },
-  { command: 'resource@community:~$ get --benefits', output: '✓ Cupom MARQUEZZDEV ativo na Zaroc e Rocketseat' },
   { command: 'resource@community:~$ community_state', output: '🚀 STATUS: BUILDING TOGETHER' }
 ];

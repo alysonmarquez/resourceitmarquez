@@ -1,4 +1,4 @@
-﻿import { Linkedin, Instagram, Globe, Github, MessageCircle, Gamepad2, ArrowUp } from 'lucide-react';
+import { Linkedin, Instagram, Globe, Github, MessageCircle, Gamepad2, ArrowUp } from 'lucide-react';
 
 interface FooterProps {
   isTechGirl?: boolean;
@@ -84,8 +84,23 @@ export function Footer({ isTechGirl }: FooterProps) {
             </h4>
             <ul className="flex flex-col gap-2 text-xs text-[#A1AEC2]">
               <li>
+                <a href="https://chat.whatsapp.com/HBLOJ121r0YIJu8zNfY5B3" target="_blank" rel="noopener noreferrer" className="hover:text-[#E6E9EF] transition-colors font-medium text-[#E6E9EF]">
+                  Comunidade WhatsApp (Principal)
+                </a>
+              </li>
+              <li>
                 <a href="https://chat.whatsapp.com/LWFPj7qWEE11VCgcEvchHi" target="_blank" rel="noopener noreferrer" className="hover:text-[#E6E9EF] transition-colors">
                   WhatsApp Geral
+                </a>
+              </li>
+              <li>
+                <a href="https://chat.whatsapp.com/LbQSl8Q2tjcGluF2He3zI6" target="_blank" rel="noopener noreferrer" className="hover:text-[#E6E9EF] transition-colors text-[#E0A34A]">
+                  Grupo de Vagas & Freelas
+                </a>
+              </li>
+              <li>
+                <a href="https://chat.whatsapp.com/Hwfpb0H9atAHnKom9HMq4s" target="_blank" rel="noopener noreferrer" className="hover:text-[#E6E9EF] transition-colors">
+                  Ofertas & Descontos Tech
                 </a>
               </li>
               <li>
@@ -96,11 +111,6 @@ export function Footer({ isTechGirl }: FooterProps) {
               <li>
                 <a href="https://t.me/+Wu8bsrBmcBpkNzQx" target="_blank" rel="noopener noreferrer" className="hover:text-[#E6E9EF] transition-colors">
                   Canal no Telegram
-                </a>
-              </li>
-              <li>
-                <a href="#frentes" className="hover:text-[#E6E9EF] transition-colors">
-                  Frentes de Estudo
                 </a>
               </li>
             </ul>
@@ -123,13 +133,18 @@ export function Footer({ isTechGirl }: FooterProps) {
                 </a>
               </li>
               <li>
-                <a href="https://chat.whatsapp.com/Hwfpb0H9atAHnKom9HMq4s" target="_blank" rel="noopener noreferrer" className="hover:text-[#E6E9EF] transition-colors">
+                <a href="https://chat.whatsapp.com/LbQSl8Q2tjcGluF2He3zI6" target="_blank" rel="noopener noreferrer" className="hover:text-[#E6E9EF] transition-colors">
                   Vagas & Oportunidades
                 </a>
               </li>
               <li>
                 <a href="#projetos" className="hover:text-[#E6E9EF] transition-colors">
                   Projetos Open Source
+                </a>
+              </li>
+              <li>
+                <a href="#noticias" className="hover:text-[#E6E9EF] transition-colors">
+                  Portal Tech News
                 </a>
               </li>
             </ul>

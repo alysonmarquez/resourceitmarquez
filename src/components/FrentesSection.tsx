@@ -1,12 +1,5 @@
-﻿import { 
-  Code2, 
-  Sparkles, 
-  MessageCircle, 
-  Briefcase, 
-  Terminal, 
-  Users, 
-  ArrowUpRight 
-} from 'lucide-react';
+﻿import { Code2, Sparkles, MessageCircle, Briefcase, FolderGit2, Info, ArrowUpRight } from 'lucide-react';
+import { GlowCard } from './GlowCard';
 
 interface FrentesSectionProps {
   isTechGirl?: boolean;
@@ -15,11 +8,11 @@ interface FrentesSectionProps {
   onOpenAboutModal: () => void;
 }
 
-export function FrentesSection({
-  isTechGirl,
-  onOpenTechGirlModal,
-  onOpenProjectsModal,
-  onOpenAboutModal
+export function FrentesSection({ 
+  isTechGirl, 
+  onOpenTechGirlModal, 
+  onOpenProjectsModal, 
+  onOpenAboutModal 
 }: FrentesSectionProps) {
   const frentes = [
     {
@@ -55,33 +48,33 @@ export function FrentesSection({
     },
     {
       id: 'vagas',
-      title: 'Grupo de Ofertas & Vagas',
+      title: 'Vagas & Oportunidades Tech',
       tag: 'Carreira',
-      desc: 'Compartilhamento diário de oportunidades para estágio, Jr, Pleno, além de cupons e descontos educacionais exclusivos.',
-      icon: <Briefcase size={20} className={isTechGirl ? 'text-[#967189]' : 'text-[#E0A34A]'} />,
-      link: 'https://chat.whatsapp.com/Hwfpb0H9atAHnKom9HMq4s',
+      desc: 'Compartilhamento em tempo real de vagas de emprego, estágios, posições Jr/Pleno e freelas enviados pela comunidade.',
+      icon: <Briefcase size={20} className="text-[#E0A34A]" />,
+      link: 'https://chat.whatsapp.com/LbQSl8Q2tjcGluF2He3zI6',
       isExternal: true,
-      actionText: 'Ver vagas & oportunidades'
+      actionText: 'Acessar grupo de Vagas'
     },
     {
       id: 'projetos',
       title: 'Projetos em Andamento',
       tag: 'Hands-on',
-      desc: 'Trabalhe em equipe construindo plataformas reais como RecruitAI e Arena Xeque com versionamento no GitHub e code review.',
-      icon: <Terminal size={20} className={isTechGirl ? 'text-[#967189]' : 'text-[#246386]'} />,
+      desc: 'Trabalhe em equipe construindo plataformas reais como MarquezMatch, RecruitAI e Arena Xeque com versionamento no GitHub.',
+      icon: <FolderGit2 size={20} className={isTechGirl ? 'text-[#967189]' : 'text-[#246386]'} />,
       onClick: onOpenProjectsModal,
       isExternal: false,
-      actionText: 'Ver projetos ativos'
+      actionText: 'Explorar projetos ativos'
     },
     {
       id: 'sobre',
       title: 'Sobre a Comunidade',
-      tag: 'Manifesto',
-      desc: 'Nossa história, fundação em 07/05/2025, regras de convivência e a visão de democratizar o acesso à carreira de tecnologia.',
-      icon: <Users size={20} className={isTechGirl ? 'text-[#967189]' : 'text-[#246386]'} />,
+      tag: 'Conheça Mais',
+      desc: 'Entenda os pilares, propósito, regras de convivência e como funciona a colaboração diária na Resource IT Marquez.',
+      icon: <Info size={20} className="text-[#E0A34A]" />,
       onClick: onOpenAboutModal,
       isExternal: false,
-      actionText: 'Ler manifesto e regras'
+      actionText: 'Ler sobre a Resource IT'
     }
   ];
 
@@ -89,76 +82,77 @@ export function FrentesSection({
     <section id="frentes" aria-labelledby="frentes-heading" className="py-16 md:py-24 border-t border-[#E6E9EF]/10">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
+        {/* Section Header */}
         <div className="flex flex-col items-center text-center mb-12">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-[#E6E9EF]/10 bg-[#103653]/30 mb-3">
             <span className="font-mono text-xs uppercase tracking-[0.2em] text-[#A1AEC2]">
-              Pilares & Ecossistema
+              Frentes de Atuação
             </span>
           </div>
           <h2 id="frentes-heading" className="font-display text-2xl md:text-4xl font-bold text-[#E6E9EF] tracking-tight">
-            Frentes ativas da Resource IT Marquez.
+            Tudo o que você precisa para acelerar sua jornada.
           </h2>
-          <p className="text-sm md:text-base text-[#A1AEC2] max-w-xl mt-2 leading-relaxed">
-            Escolha sua trilha, entre nos grupos e acelere sua evolução técnica com suporte da comunidade.
+          <p className="text-sm md:text-base text-[#A1AEC2] max-w-2xl mt-2 leading-relaxed">
+            Ambientes focados em áreas estratégicas para você estudar, praticar e se conectar com outros desenvolvedores.
           </p>
         </div>
 
-        {/* 3-Column Grid */}
+        {/* 6 Cards Grid (3 columns on desktop) with Glow Spotlight */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-6">
-          {frentes.map((item) => (
-            <div 
-              key={item.id}
-              className={`p-6 rounded-2xl card-surface flex flex-col justify-between group ${
-                item.highlight 
-                  ? 'border-[#967189]/40 bg-[#103653]/20 shadow-[0_4px_25px_-5px_rgba(150,113,137,0.2)]' 
+          {frentes.map((frente) => (
+            <GlowCard 
+              key={frente.id}
+              className={`p-6 ${
+                frente.highlight 
+                  ? 'border-[#967189]/40 card-surface-techgirl' 
                   : ''
-              } ${isTechGirl ? 'card-surface-techgirl' : ''}`}
+              }`}
             >
               <div>
                 <div className="flex items-center justify-between mb-4">
                   <div className="p-3 rounded-xl border border-[#E6E9EF]/10 bg-[#103653]/30">
-                    {item.icon}
+                    {frente.icon}
                   </div>
-                  <span className={`font-mono text-[10px] font-semibold px-2.5 py-1 rounded-full border ${
-                    item.highlight 
+                  <span className={`font-mono text-[10px] px-2.5 py-0.5 rounded-full font-medium ${
+                    frente.highlight 
                       ? 'badge-rose' 
                       : 'badge-tech'
                   }`}>
-                    {item.tag}
+                    {frente.tag}
                   </span>
                 </div>
 
-                <h3 className="font-display text-lg font-bold text-[#E6E9EF] mb-2 group-hover:text-white transition-colors">
-                  {item.title}
+                <h3 className="font-display text-lg font-bold text-[#E6E9EF] mb-2">
+                  {frente.title}
                 </h3>
                 <p className="text-xs text-[#A1AEC2] leading-relaxed mb-6">
-                  {item.desc}
+                  {frente.desc}
                 </p>
               </div>
 
-              {/* Action */}
-              {item.isExternal ? (
-                <a 
-                  href={item.link} 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center justify-between px-4 py-2.5 rounded-xl border border-[#E6E9EF]/10 bg-[#030C1E]/50 hover:bg-[#1D5171]/40 hover:border-[#246386]/60 text-xs font-semibold text-[#E6E9EF] transition-all"
-                >
-                  <span>{item.actionText}</span>
-                  <ArrowUpRight size={14} className="text-[#A1AEC2] group-hover:text-[#E6E9EF]" />
-                </a>
-              ) : (
-                <button 
-                  type="button" 
-                  onClick={item.onClick}
-                  className="inline-flex items-center justify-between px-4 py-2.5 rounded-xl border border-[#E6E9EF]/10 bg-[#030C1E]/50 hover:bg-[#1D5171]/40 hover:border-[#246386]/60 text-xs font-semibold text-[#E6E9EF] transition-all cursor-pointer text-left"
-                >
-                  <span>{item.actionText}</span>
-                  <ArrowUpRight size={14} className="text-[#A1AEC2] group-hover:text-[#E6E9EF]" />
-                </button>
-              )}
-
-            </div>
+              <div className="pt-4 border-t border-[#E6E9EF]/10">
+                {frente.isExternal ? (
+                  <a 
+                    href={frente.link} 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#E6E9EF] hover:text-white transition-colors"
+                  >
+                    <span>{frente.actionText}</span>
+                    <ArrowUpRight size={14} />
+                  </a>
+                ) : (
+                  <button 
+                    type="button" 
+                    onClick={frente.onClick}
+                    className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#E6E9EF] hover:text-white transition-colors cursor-pointer text-left"
+                  >
+                    <span>{frente.actionText}</span>
+                    <ArrowUpRight size={14} />
+                  </button>
+                )}
+              </div>
+            </GlowCard>
           ))}
         </div>
 

@@ -1,4 +1,4 @@
-export interface CommunityActivity {
+﻿export interface CommunityActivity {
   id: string;
   type: 'member' | 'opportunity' | 'study' | 'english' | 'project' | 'techgirl' | 'github';
   text: string;
@@ -6,6 +6,33 @@ export interface CommunityActivity {
   timestamp: number;
   source: 'WhatsApp' | 'GitHub' | 'Discord' | 'Telegram' | 'Tech Girl' | 'Comunidade';
   actor?: string;
+}
+
+export interface TechNewsArticle {
+  id: string;
+  title: string;
+  summary: string;
+  source: string;
+  category: string;
+  url: string;
+  publishedAt: string;
+  author?: string;
+  tabcoins?: number;
+}
+
+export interface RealJobItem {
+  id: string;
+  role: string;
+  company: string;
+  type: string;
+  level: string;
+  location: string;
+  tech: string[];
+  description: string;
+  link: string;
+  date: string;
+  timestamp: number;
+  source: string;
 }
 
 const STORAGE_KEY = 'resourceit_real_activities_v1';
@@ -39,7 +66,7 @@ const defaultRealActivities: CommunityActivity[] = [
   {
     id: 'w-3',
     type: 'opportunity',
-    text: 'Nova vaga para Desenvolvedor(a) compartilhada no grupo de Ofertas',
+    text: 'Nova vaga para Desenvolvedor(a) compartilhada no grupo de Vagas',
     time: 'há 2 horas',
     timestamp: Date.now() - 7200000,
     source: 'WhatsApp'
@@ -81,7 +108,7 @@ export function formatRelativeTime(timestamp: number): string {
   return `há ${Math.floor(diffSec / 86400)}d`;
 }
 
-// Fetch real public events from GitHub API with fast timeout
+// Fetch real public events from GitHub API
 export async function fetchRealGitHubEvents(username: string = 'alysonmarquez'): Promise<CommunityActivity[]> {
   try {
     const controller = new AbortController();
@@ -98,104 +125,100 @@ export async function fetchRealGitHubEvents(username: string = 'alysonmarquez'):
     const events = await response.json();
     if (!Array.isArray(events)) return [];
 
-    const githubActivities: CommunityActivity[] = [];
+    return events
+      .filter((ev: any) => ev.type === 'PushEvent' || ev.type === 'CreateEvent' || ev.type === 'WatchEvent')
+      .slice(0, 4)
+      .map((ev: any) => {
+        const repoName = ev.repo?.name ? ev.repo.name.replace(`${username}/`, '') : 'repo';
+        let actionText = '';
+        if (ev.type === 'PushEvent') {
+          const count = ev.payload?.commits?.length || 1;
+          actionText = `${count} commit(s) enviado(s) para o projeto ${repoName}`;
+        } else if (ev.type === 'CreateEvent') {
+          actionText = `Criou nova branch/tag no projeto ${repoName}`;
+        } else {
+          actionText = `Atualizou o projeto ${repoName}`;
+        }
 
-    for (const ev of events) {
-      const repoName = ev.repo?.name ? ev.repo.name.split('/')[1] || ev.repo.name : 'repositório';
-      const actor = ev.actor?.display_login || ev.actor?.login || username;
-      const createdAt = new Date(ev.created_at).getTime();
+        const createdAt = new Date(ev.created_at).getTime();
 
-      if (ev.type === 'PushEvent') {
-        const commitCount = ev.payload?.commits?.length || 1;
-        const msg = ev.payload?.commits?.[0]?.message || 'Atualização no código';
-        githubActivities.push({
+        return {
           id: `gh-${ev.id}`,
-          type: 'project',
-          text: `${actor} enviou ${commitCount} commit(s) em ${repoName}: "${msg.substring(0, 50)}${msg.length > 50 ? '...' : ''}"`,
+          type: 'github' as const,
+          text: actionText,
           time: formatRelativeTime(createdAt),
           timestamp: createdAt,
-          source: 'GitHub',
-          actor
-        });
-      } else if (ev.type === 'CreateEvent') {
-        githubActivities.push({
-          id: `gh-${ev.id}`,
-          type: 'project',
-          text: `${actor} criou novo branch/repositório: ${repoName}`,
-          time: formatRelativeTime(createdAt),
-          timestamp: createdAt,
-          source: 'GitHub',
-          actor
-        });
-      } else if (ev.type === 'WatchEvent') {
-        githubActivities.push({
-          id: `gh-${ev.id}`,
-          type: 'member',
-          text: `Novo dev favoritou o repositório ${repoName}`,
-          time: formatRelativeTime(createdAt),
-          timestamp: createdAt,
-          source: 'GitHub',
-          actor
-        });
-      }
-    }
-
-    return githubActivities;
-  } catch (error) {
-    return [];
-  }
-}
-
-// Fetch real events from local Webhook API with fast timeout
-export async function fetchWebhookActivities(): Promise<CommunityActivity[]> {
-  try {
-    const controller = new AbortController();
-    const timeoutId = setTimeout(() => controller.abort(), 2000);
-
-    const res = await fetch('http://localhost:3001/api/activities', { signal: controller.signal });
-    clearTimeout(timeoutId);
-
-    if (!res.ok) return [];
-    const data = await res.json();
-    if (data && Array.isArray(data.activities)) {
-      return data.activities.map((a: any) => ({
-        id: a.id,
-        type: a.type || 'member',
-        text: a.text,
-        time: formatRelativeTime(a.timestamp),
-        timestamp: a.timestamp,
-        source: a.source || 'WhatsApp',
-        actor: a.actor
-      }));
-    }
-    return [];
+          source: 'GitHub' as const,
+          actor: `@${username}`
+        };
+      });
   } catch {
     return [];
   }
 }
 
-// Hook or manager to get merged real activities
+// Fetch real live Tech News from /api/tech-news
+export async function fetchTechNews(): Promise<TechNewsArticle[]> {
+  try {
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 3500);
+
+    const res = await fetch('http://localhost:3001/api/tech-news', { signal: controller.signal });
+    clearTimeout(timeoutId);
+
+    if (!res.ok) return [];
+    const data = await res.json();
+    return (data.news || []) as TechNewsArticle[];
+  } catch {
+    return [];
+  }
+}
+
+// Fetch real live Jobs from /api/jobs
+export async function fetchRealJobs(): Promise<RealJobItem[]> {
+  try {
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 3000);
+
+    const res = await fetch('http://localhost:3001/api/jobs', { signal: controller.signal });
+    clearTimeout(timeoutId);
+
+    if (!res.ok) return [];
+    const data = await res.json();
+    return (data.jobs || []) as RealJobItem[];
+  } catch {
+    return [];
+  }
+}
+
+// Merge and return real activities
 export async function getRealActivities(): Promise<CommunityActivity[]> {
-  const local = getStoredActivities();
-  const ghEvents = await fetchRealGitHubEvents();
-  const webhookEvents = await fetchWebhookActivities();
-  
-  // Merge and deduplicate by id
-  const map = new Map<string, CommunityActivity>();
-  local.forEach(item => map.set(item.id, item));
-  webhookEvents.forEach(item => map.set(item.id, item));
-  ghEvents.forEach(item => map.set(item.id, item));
+  const localActivities = getStoredActivities();
+  const githubActivities = await fetchRealGitHubEvents('alysonmarquez');
 
-  const merged = Array.from(map.values()).sort((a, b) => b.timestamp - a.timestamp);
-  
-  // Re-format relative times
-  const formatted = merged.map(item => ({
-    ...item,
-    time: formatRelativeTime(item.timestamp)
-  }));
+  let backendActivities: CommunityActivity[] = [];
+  try {
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 2000);
+    const res = await fetch('http://localhost:3001/api/activities', { signal: controller.signal });
+    clearTimeout(timeoutId);
+    if (res.ok) {
+      backendActivities = await res.json();
+    }
+  } catch {}
 
-  saveStoredActivities(formatted);
-  return formatted;
+  const mergedMap = new Map<string, CommunityActivity>();
+
+  [...backendActivities, ...githubActivities, ...localActivities].forEach(act => {
+    if (!mergedMap.has(act.id)) {
+      mergedMap.set(act.id, act);
+    }
+  });
+
+  const merged = Array.from(mergedMap.values());
+  merged.sort((a, b) => (b.timestamp || 0) - (a.timestamp || 0));
+
+  return merged.slice(0, 15);
 }
 
 export interface CommunityGroup {
@@ -210,9 +233,7 @@ export interface CommunityGroup {
 }
 
 export interface CommunityGroupsResponse {
-  success: boolean;
   totalMembers: number;
-  groupsCount: number;
   groups: CommunityGroup[];
 }
 
@@ -221,7 +242,7 @@ export async function fetchCommunityGroups(): Promise<CommunityGroupsResponse | 
     const controller = new AbortController();
     const timeoutId = setTimeout(() => controller.abort(), 2000);
 
-    const res = await fetch('http://localhost:3001/api/community/groups', { signal: controller.signal });
+    const res = await fetch('http://localhost:3001/api/groups', { signal: controller.signal });
     clearTimeout(timeoutId);
 
     if (!res.ok) return null;
@@ -233,15 +254,11 @@ export async function fetchCommunityGroups(): Promise<CommunityGroupsResponse | 
 }
 
 export interface PresenceData {
-  success: boolean;
   online: number;
   details: {
     discordOnline: number;
     webVisitors: number;
-    discordMembers: number;
-    telegramMembers: number;
   };
-  totalMembers: number;
 }
 
 export function getVisitorId(): string {
@@ -260,14 +277,12 @@ export function getVisitorId(): string {
 export async function sendPresenceHeartbeat(): Promise<void> {
   try {
     const visitorId = getVisitorId();
-    await fetch('http://localhost:3001/api/presence/heartbeat', {
+    await fetch('http://localhost:3001/api/heartbeat', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ visitorId })
     });
-  } catch {
-    // Silent fail if local backend is not running
-  }
+  } catch {}
 }
 
 export async function fetchRealPresence(): Promise<PresenceData | null> {
@@ -285,19 +300,4 @@ export async function fetchRealPresence(): Promise<PresenceData | null> {
   } catch {
     return null;
   }
-}
-
-// Function to push a real WhatsApp/Webhook event into the feed
-export function addRealActivity(activity: Omit<CommunityActivity, 'id' | 'timestamp' | 'time'>): CommunityActivity {
-  const newActivity: CommunityActivity = {
-    ...activity,
-    id: `event-${Date.now()}-${Math.random().toString(36).substring(2, 7)}`,
-    timestamp: Date.now(),
-    time: 'agora'
-  };
-
-  const current = getStoredActivities();
-  const updated = [newActivity, ...current].slice(0, 30);
-  saveStoredActivities(updated);
-  return newActivity;
 }

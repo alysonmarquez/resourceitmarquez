@@ -1,4 +1,4 @@
-﻿import { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { Sparkles, Menu, X, MessageCircle, ArrowUpRight } from 'lucide-react';
 
 interface NavbarProps {
@@ -64,8 +64,8 @@ export function Navbar({ theme, onToggleTheme, onOpenExperienceModal }: NavbarPr
           <a href="#projetos" className="text-sm font-medium text-[#A1AEC2] hover:text-[#E6E9EF] transition-colors">
             Projetos
           </a>
-          <a href="#apoiadores" className="text-sm font-medium text-[#A1AEC2] hover:text-[#E6E9EF] transition-colors">
-            Apoiadores
+            <a href="#noticias" className="text-sm font-medium text-[#A1AEC2] hover:text-[#E6E9EF] transition-colors">
+            Notícias
           </a>
           <a href="#fundador" className="text-sm font-medium text-[#A1AEC2] hover:text-[#E6E9EF] transition-colors">
             Fundador
@@ -91,7 +91,7 @@ export function Navbar({ theme, onToggleTheme, onOpenExperienceModal }: NavbarPr
 
           {/* Quick CTA */}
           <a 
-            href="https://chat.whatsapp.com/LWFPj7qWEE11VCgcEvchHi" 
+            href="https://chat.whatsapp.com/HBLOJ121r0YIJu8zNfY5B3" 
             target="_blank" 
             rel="noopener noreferrer"
             className="btn-primary inline-flex items-center gap-2 px-4 py-2 text-xs"
@@ -170,7 +170,7 @@ export function Navbar({ theme, onToggleTheme, onOpenExperienceModal }: NavbarPr
 
           <div className="pt-3 border-t border-[#E6E9EF]/10 flex flex-col gap-2.5">
             <a 
-              href="https://chat.whatsapp.com/LWFPj7qWEE11VCgcEvchHi" 
+              href="https://chat.whatsapp.com/HBLOJ121r0YIJu8zNfY5B3" 
               target="_blank" 
               rel="noopener noreferrer"
               className="btn-primary w-full flex items-center justify-center gap-2 py-3 text-sm"

@@ -27,6 +27,7 @@ import { LiveNow } from './components/LiveNow';
 import { OpportunityTicker } from './components/OpportunityTicker';
 import { CommunityTerminal } from './components/CommunityTerminal';
 import { KineticCommunity } from './components/KineticCommunity';
+import { TechNewsSection } from './components/TechNewsSection';
 import { StatsSection } from './components/StatsSection';
 import { FrentesSection } from './components/FrentesSection';
 import { ProjectsSection } from './components/ProjectsSection';
@@ -203,13 +204,13 @@ export default function App() {
                 {/* Action CTA Buttons */}
                 <div className="flex flex-col sm:flex-row flex-wrap items-stretch sm:items-center gap-3.5 pt-2">
                   <a 
-                    href="https://chat.whatsapp.com/LWFPj7qWEE11VCgcEvchHi" 
+                    href="https://chat.whatsapp.com/HBLOJ121r0YIJu8zNfY5B3" 
                     target="_blank" 
                     rel="noopener noreferrer"
                     className="btn-primary inline-flex items-center justify-center gap-2.5 px-7 py-3.5 text-sm cursor-pointer"
                   >
                     <MessageCircle size={18} />
-                    <span>Entrar no WhatsApp</span>
+                    <span>Entrar na Comunidade</span>
                     <ArrowUpRight size={16} />
                   </a>
 
@@ -244,14 +245,14 @@ export default function App() {
                   </button>
                 </div>
 
-                {/* Key Pillars Tags */}
+                {/* Key Pillars Tags (without coupon in hero) */}
                 <div className="flex flex-wrap items-center gap-2 pt-3 border-t border-[#E6E9EF]/10">
                   <span className="font-mono text-xs text-[#A1AEC2]/70 mr-2">Destaques:</span>
-                  {['100% Gratuito', 'Back-End & APIs', 'Aulas de Inglês', 'Tech Girl', 'Open Source', 'Cupom: MARQUEZZDEV'].map((tag) => (
+                  {['100% Gratuito', 'Back-End & APIs', 'Aulas de Inglês', 'Tech Girl', 'Open Source', 'Vagas Tech'].map((tag) => (
                     <span 
                       key={tag} 
                       className={`px-2.5 py-1 rounded-lg text-xs font-mono font-medium ${
-                        tag.includes('Cupom') 
+                        tag.includes('Vagas') 
                           ? 'badge-gold font-semibold shadow-sm'
                           : tag.includes('Tech Girl')
                           ? 'badge-rose font-medium'
@@ -265,7 +266,7 @@ export default function App() {
 
               </div>
 
-              {/* Right Column: Live Activity Monitor + Interactive Reactions (Sticky on Desktop) */}
+              {/* Right Column: Live Activity Monitor + Interactive Reactions + Terminal (Sticky on Desktop) */}
               <div className="lg:col-span-5 lg:sticky lg:top-28 animate-subir space-y-5">
                 <ActivityMonitor isTechGirl={isTechGirl} />
                 <CommunityTerminal />
@@ -282,7 +283,7 @@ export default function App() {
         {/* LIVE NOW (Acontecendo Agora Carousel) */}
         <LiveNow isTechGirl={isTechGirl} />
 
-        {/* OPPORTUNITY TICKER (Vagas & Carreira) */}
+        {/* OPPORTUNITY TICKER (Vagas & Carreira em Tempo Real) */}
         <OpportunityTicker />
 
         {/* STATS & NUMBERS with ANIMATED COUNTERS */}
@@ -295,6 +296,9 @@ export default function App() {
           onOpenProjectsModal={() => setIsProjectsModalOpen(true)}
           onOpenAboutModal={() => setIsAboutModalOpen(true)}
         />
+
+        {/* TECH NEWS SECTION (Portal de Notícias Tech em Tempo Real) */}
+        <TechNewsSection isTechGirl={isTechGirl} />
 
         {/* PROJECTS SECTION with SPOTLIGHT GLOW CARDS */}
         <ProjectsSection 

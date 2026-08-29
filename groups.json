@@ -1,33 +1,43 @@
 [
   {
-    "id": "120363420184891232@g.us",
+    "id": "wa-comunidade",
+    "name": "Comunidade Resource IT Marquez",
+    "category": "Comunidade",
+    "platform": "WhatsApp",
+    "link": "https://chat.whatsapp.com/HBLOJ121r0YIJu8zNfY5B3",
+    "membersCount": 330,
+    "status": "Ativo • Principal",
+    "description": "Comunidade central, networking, conexões e projetos."
+  },
+  {
+    "id": "wa-geral",
     "name": "Resource IT Marquez - Geral",
     "category": "Geral",
     "platform": "WhatsApp",
     "link": "https://chat.whatsapp.com/LWFPj7qWEE11VCgcEvchHi",
-    "membersCount": 330,
-    "status": "Ativo • Oficial",
-    "description": "Networking principal, avisos oficiais, dúvidas e conexões na área tech."
-  },
-  {
-    "id": "120363413475472336@g.us",
-    "name": "Tech Girl (Apenas Mulheres)",
-    "category": "Tech Girl",
-    "platform": "WhatsApp",
-    "link": "https://chat.whatsapp.com/LWFPj7qWEE11VCgcEvchHi",
     "membersCount": 270,
     "status": "Ativo • Oficial",
-    "description": "Espaço seguro e exclusivo para mulheres desenvolvedoras e estudantes."
+    "description": "Chat geral de discussões, dúvidas técnicas e suporte."
   },
   {
-    "id": "120363418472486998@g.us",
-    "name": "Resource IT Marquez - Vagas & Ofertas Tech",
-    "category": "Vagas & Ofertas",
+    "id": "wa-vagas",
+    "name": "Resource IT Marquez - Vagas e Freelas",
+    "category": "Vagas & Freelas",
+    "platform": "WhatsApp",
+    "link": "https://chat.whatsapp.com/LbQSl8Q2tjcGluF2He3zI6",
+    "membersCount": 110,
+    "status": "Ativo • Feed em Tempo Real",
+    "description": "Vagas de emprego tech, estágios e oportunidades freelance postadas em tempo real."
+  },
+  {
+    "id": "wa-ofertas",
+    "name": "🏷️ Resource IT Marquez - Ofertas Tech",
+    "category": "Ofertas & Descontos",
     "platform": "WhatsApp",
     "link": "https://chat.whatsapp.com/Hwfpb0H9atAHnKom9HMq4s",
-    "membersCount": 185,
+    "membersCount": 75,
     "status": "Ativo • Oficial",
-    "description": "Oportunidades de estágio, vagas Jr/Pleno/Sênior e descontos tech."
+    "description": "Promoções de hardware, cursos, periféricos e livros tech."
   },
   {
     "id": "tg-canal",

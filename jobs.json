@@ -1,0 +1,59 @@
+[
+  {
+    "id": "job-1",
+    "role": "Desenvolvedor Back-End Node.js & TypeScript",
+    "company": "Fintech Parceira",
+    "type": "Remoto CLT / PJ",
+    "level": "Júnior / Pleno",
+    "location": "Brasil (100% Remoto)",
+    "tech": [
+      "Node.js",
+      "TypeScript",
+      "PostgreSQL",
+      "Docker"
+    ],
+    "description": "Desenvolvimento de APIs escaláveis, integração de pagamentos e microsserviços em nuvem.",
+    "link": "https://chat.whatsapp.com/LbQSl8Q2tjcGluF2He3zI6",
+    "date": "Hoje às 10:15",
+    "timestamp": 1787987930927,
+    "source": "Grupo de Vagas WhatsApp"
+  },
+  {
+    "id": "job-2",
+    "role": "Desenvolvedor Full Stack React & C# .NET",
+    "company": "Software House",
+    "type": "Híbrido / Remoto",
+    "level": "Pleno",
+    "location": "Remoto",
+    "tech": [
+      "React",
+      "C# .NET 9",
+      "SQL Server",
+      "REST APIs"
+    ],
+    "description": "Construção de portais SaaS e modernização de arquitetura de microsserviços.",
+    "link": "https://chat.whatsapp.com/LbQSl8Q2tjcGluF2He3zI6",
+    "date": "Hoje às 09:30",
+    "timestamp": 1787985230927,
+    "source": "Grupo de Vagas WhatsApp"
+  },
+  {
+    "id": "job-3",
+    "role": "Estágio em Desenvolvimento de Software",
+    "company": "Tech Startup",
+    "type": "Remoto",
+    "level": "Estágio",
+    "location": "Remoto",
+    "tech": [
+      "JavaScript",
+      "Python / Java",
+      "Git",
+      "SQL"
+    ],
+    "description": "Oportunidade para estudantes de tecnologia iniciarem na prática com mentoria ativa.",
+    "link": "https://chat.whatsapp.com/LbQSl8Q2tjcGluF2He3zI6",
+    "date": "Ontem",
+    "timestamp": 1787918630927,
+    "source": "Grupo de Vagas WhatsApp"
+  }
+]
