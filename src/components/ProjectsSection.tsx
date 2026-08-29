@@ -1,4 +1,5 @@
 ﻿import { Terminal, GitBranch, Layers, ArrowUpRight, Sparkles, Globe } from 'lucide-react';
+import { GlowCard } from './GlowCard';
 
 interface ProjectsSectionProps {
   isTechGirl?: boolean;
@@ -98,14 +99,12 @@ export function ProjectsSection({ isTechGirl, onOpenProjectsModal }: ProjectsSec
           </button>
         </div>
 
-        {/* 3 Columns Grid on Desktop */}
+        {/* 3 Columns Grid on Desktop with Spotlight Glow Cards */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-6">
           {projects.map((proj) => (
-            <div 
+            <GlowCard 
               key={proj.id}
-              className={`p-6 rounded-2xl card-surface flex flex-col justify-between group ${
-                isTechGirl ? 'card-surface-techgirl' : ''
-              }`}
+              className={`p-6 ${isTechGirl ? 'card-surface-techgirl' : ''}`}
             >
               <div>
                 <div className="flex items-center justify-between mb-4">
@@ -165,8 +164,7 @@ export function ProjectsSection({ isTechGirl, onOpenProjectsModal }: ProjectsSec
                   <ArrowUpRight size={13} />
                 </a>
               </div>
-
-            </div>
+            </GlowCard>
           ))}
         </div>
 

@@ -19,6 +19,14 @@ import {
   Zap
 } from 'lucide-react';
 import { Navbar } from './components/Navbar';
+import { ActivityTicker } from './components/ActivityTicker';
+import { RotatingWords } from './components/RotatingWords';
+import { MembersOnline } from './components/MembersOnline';
+import { TechMarquee } from './components/TechMarquee';
+import { LiveNow } from './components/LiveNow';
+import { OpportunityTicker } from './components/OpportunityTicker';
+import { CommunityTerminal } from './components/CommunityTerminal';
+import { KineticCommunity } from './components/KineticCommunity';
 import { StatsSection } from './components/StatsSection';
 import { FrentesSection } from './components/FrentesSection';
 import { ProjectsSection } from './components/ProjectsSection';
@@ -26,6 +34,8 @@ import { ActivityMonitor } from './components/ActivityMonitor';
 import { FounderSection } from './components/FounderSection';
 import { Footer } from './components/Footer';
 import { HeroIridescentAura } from './components/HeroIridescentAura';
+import { GlowCard } from './components/GlowCard';
+import { RevealOnScroll } from './components/RevealOnScroll';
 import { ExperienceModal } from './components/ExperienceModal';
 import { ProjectsModal } from './components/ProjectsModal';
 import { AboutModal } from './components/AboutModal';
@@ -113,6 +123,9 @@ export default function App() {
       <div className={isTechGirl ? "hero-aura-bg-techgirl" : "hero-aura-bg"} />
       <div className="noise-overlay" />
 
+      {/* Top Continuous Ticker Bar */}
+      <ActivityTicker />
+
       {/* Fixed Navbar */}
       <Navbar 
         theme={theme}
@@ -145,7 +158,7 @@ export default function App() {
       <main id="inicio" className="relative z-10">
         
         {/* HERO SECTION with Dynamic Organic Iridescent Wave Background */}
-        <section className="pt-28 md:pt-36 pb-16 md:pb-24 relative">
+        <section className="pt-24 md:pt-32 pb-16 md:pb-24 relative">
           
           {/* Organic Iridescent Wave & Light Trails directly from Logo */}
           <HeroIridescentAura isTechGirl={isTechGirl} />
@@ -157,31 +170,34 @@ export default function App() {
               {/* Left Column: Hero Headlines & Action Buttons */}
               <div className="lg:col-span-7 flex flex-col gap-6 animate-subir">
                 
-                {/* Kicker Pill Badge with Gold Accent */}
-                <div className="flex items-center gap-3">
-                  <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-[#E6E9EF]/15 bg-[#103653]/40 backdrop-blur-md shadow-lg">
+                {/* Kicker Pill Badge + Live Members Online Indicator */}
+                <div className="flex flex-wrap items-center gap-3">
+                  <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-[#E6E9EF]/15 bg-[#103653]/40 backdrop-blur-md shadow-lg">
                     <span className="w-2 h-2 rounded-full bg-[#E0A34A] animate-pulse-dot" />
                     <span className="font-mono text-xs font-semibold text-[#E6E9EF]">
-                      +{totalMembers.toLocaleString('pt-BR')} Conexões Reais Sincronizadas
+                      +{totalMembers.toLocaleString('pt-BR')} Conexões Reais
                     </span>
                   </div>
 
-                  <span className="hidden sm:inline-block font-mono text-xs text-[#A1AEC2]/80">
-                    Desde 07/05/2025
-                  </span>
+                  <MembersOnline />
                 </div>
 
                 {/* Main Headline with Logo-Inspired Organic Spectrum Gradient */}
                 <h1 className="font-display text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-[#E6E9EF] leading-[1.08]">
                   Construa sua carreira em tecnologia com quem{' '}
-                  <span className={isTechGirl ? "text-logo-spectrum" : "text-logo-spectrum"}>
+                  <span className="text-logo-spectrum">
                     está no jogo.
                   </span>
                 </h1>
 
+                {/* Rotating Dynamic Words */}
+                <div className="pt-1">
+                  <RotatingWords />
+                </div>
+
                 {/* Subtitle */}
                 <p className="text-base sm:text-lg text-[#A1AEC2] max-w-xl leading-relaxed">
-                  Uma comunidade de desenvolvedores e estudantes focada em <strong className="text-[#E6E9EF]">Back-End</strong>, <strong className="text-[#E6E9EF]">projetos práticos</strong>, <strong className="text-[#E6E9EF]">aulas de inglês gratuitas</strong> e <strong className="text-[#E6E9EF]">aceleração profissional</strong>.
+                  Uma comunidade aberta de desenvolvedores e estudantes focada em <strong className="text-[#E6E9EF]">Back-End</strong>, <strong className="text-[#E6E9EF]">projetos práticos</strong>, <strong className="text-[#E6E9EF]">aulas de inglês gratuitas</strong> e <strong className="text-[#E6E9EF]">aceleração profissional</strong>.
                 </p>
 
                 {/* Action CTA Buttons */}
@@ -250,8 +266,9 @@ export default function App() {
               </div>
 
               {/* Right Column: Live Activity Monitor + Interactive Reactions (Sticky on Desktop) */}
-              <div className="lg:col-span-5 lg:sticky lg:top-28 animate-subir">
+              <div className="lg:col-span-5 lg:sticky lg:top-28 animate-subir space-y-5">
                 <ActivityMonitor isTechGirl={isTechGirl} />
+                <CommunityTerminal />
               </div>
 
             </div>
@@ -259,7 +276,16 @@ export default function App() {
           </div>
         </section>
 
-        {/* STATS & NUMBERS */}
+        {/* TECH MARQUEE (Dual Track Infinite Stream) */}
+        <TechMarquee />
+
+        {/* LIVE NOW (Acontecendo Agora Carousel) */}
+        <LiveNow isTechGirl={isTechGirl} />
+
+        {/* OPPORTUNITY TICKER (Vagas & Carreira) */}
+        <OpportunityTicker />
+
+        {/* STATS & NUMBERS with ANIMATED COUNTERS */}
         <StatsSection isTechGirl={isTechGirl} />
 
         {/* FRENTES & ECOSYSTEM */}
@@ -270,11 +296,14 @@ export default function App() {
           onOpenAboutModal={() => setIsAboutModalOpen(true)}
         />
 
-        {/* PROJECTS SECTION */}
+        {/* PROJECTS SECTION with SPOTLIGHT GLOW CARDS */}
         <ProjectsSection 
           isTechGirl={isTechGirl}
           onOpenProjectsModal={() => setIsProjectsModalOpen(true)}
         />
+
+        {/* KINETIC TYPOGRAPHY ("A Comunidade Não Para") */}
+        <KineticCommunity />
 
         {/* SUPPORTERS & PARTNERS SHOWCASE */}
         <section id="apoiadores" aria-labelledby="apoiadores-heading" className="py-16 md:py-24 border-t border-[#E6E9EF]/10">
@@ -297,11 +326,9 @@ export default function App() {
             {/* Partners Grid */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
               {partners.map((partner, idx) => (
-                <div 
+                <GlowCard 
                   key={idx}
-                  className={`p-6 rounded-2xl card-surface flex flex-col justify-between group ${
-                    isTechGirl ? 'card-surface-techgirl' : ''
-                  }`}
+                  className={`p-6 ${isTechGirl ? 'card-surface-techgirl' : ''}`}
                 >
                   <div>
                     <div className="flex items-center gap-3 mb-4">
@@ -362,7 +389,7 @@ export default function App() {
                     <span>Acessar benefício</span>
                     <ExternalLink size={14} />
                   </a>
-                </div>
+                </GlowCard>
               ))}
             </div>
 

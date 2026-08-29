@@ -1,4 +1,4 @@
-﻿@import "tailwindcss";
+@import "tailwindcss";
 
 @layer base {
   :root {
@@ -117,24 +117,27 @@
   }
 }
 
-.animate-subir {
-  animation: subirFade 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+@keyframes marquee {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
 }
 
-.animate-pulse-dot {
-  animation: pulseDot 2s ease-in-out infinite;
+@keyframes marquee-reverse {
+  0% {
+    transform: translateX(-50%);
+  }
+  100% {
+    transform: translateX(0%);
+  }
 }
 
-.animate-float-aura {
-  animation: floatAura 18s ease-in-out infinite;
-}
-
-.animate-float-aura-right {
-  animation: floatAuraRight 22s ease-in-out infinite;
-}
-
-.animate-breathe {
-  animation: breatheGlow 8s ease-in-out infinite;
+.mask-linear {
+  mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+  -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
 }
 
 .font-display {

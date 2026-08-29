@@ -1,6 +1,8 @@
 ﻿import { useState, useEffect } from 'react';
 import { Users, BookOpen, Layers, CheckCircle2, MessageCircle, ExternalLink, Sparkles } from 'lucide-react';
 import { fetchCommunityGroups, CommunityGroup } from '../services/activityService';
+import { AnimatedCounter } from './AnimatedCounter';
+import { GlowCard } from './GlowCard';
 
 interface StatsSectionProps {
   isTechGirl?: boolean;
@@ -22,7 +24,8 @@ export function StatsSection({ isTechGirl }: StatsSectionProps) {
 
   const stats = [
     {
-      value: `+${totalMembers.toLocaleString('pt-BR')}`,
+      to: totalMembers,
+      prefix: '+',
       label: 'Membros Conectados',
       desc: 'Membros reais e ativos nos grupos oficiais de WhatsApp, Telegram e Discord.',
       icon: <Users size={22} className="text-[#E0A34A]" />,
@@ -30,19 +33,20 @@ export function StatsSection({ isTechGirl }: StatsSectionProps) {
       actionLabel: 'Ver grupos oficiais'
     },
     {
-      value: '5',
+      to: 5,
       label: 'Frentes de Estudo',
       desc: 'Back-End, Tech Girl, Inglês Internacional, Vagas & Mentorias.',
       icon: <BookOpen size={22} className="text-[#246386]" />
     },
     {
-      value: '6',
+      to: 6,
       label: 'Projetos Práticos',
       desc: 'MarquezMatch, RecruitAI, Arena Xeque, Enge PRO, SpeedBet e Bot.',
       icon: <Layers size={22} className="text-[#967189]" />
     },
     {
-      value: '100%',
+      to: 100,
+      suffix: '%',
       label: 'Gratuito & Aberto',
       desc: 'Comunidade sem mensalidades, focada em acelerar carreiras reais.',
       icon: <CheckCircle2 size={22} className="text-[#E0A34A]" />
@@ -68,14 +72,12 @@ export function StatsSection({ isTechGirl }: StatsSectionProps) {
           </p>
         </div>
 
-        {/* 4-Column Grid */}
+        {/* 4-Column Grid with Animated Counters and Glow Cards */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
           {stats.map((stat, idx) => (
-            <div 
+            <GlowCard 
               key={idx} 
-              className={`p-6 rounded-2xl card-surface flex flex-col justify-between ${
-                isTechGirl ? 'card-surface-techgirl' : ''
-              }`}
+              className={`p-6 ${isTechGirl ? 'card-surface-techgirl' : ''}`}
             >
               <div>
                 <div className="flex items-center justify-between mb-6">
@@ -85,7 +87,12 @@ export function StatsSection({ isTechGirl }: StatsSectionProps) {
                   <span className="font-mono text-xs text-[#A1AEC2]/50">0{idx + 1}</span>
                 </div>
                 <div className="font-display text-3xl md:text-4xl font-extrabold text-[#E6E9EF] tracking-tight mb-1">
-                  {stat.value}
+                  <AnimatedCounter 
+                    to={stat.to} 
+                    prefix={stat.prefix} 
+                    suffix={stat.suffix} 
+                    duration={1.8} 
+                  />
                 </div>
                 <div className="font-medium text-sm text-[#E6E9EF]/90 mb-2">
                   {stat.label}
@@ -106,7 +113,7 @@ export function StatsSection({ isTechGirl }: StatsSectionProps) {
                   </button>
                 )}
               </div>
-            </div>
+            </GlowCard>
           ))}
         </div>
 
