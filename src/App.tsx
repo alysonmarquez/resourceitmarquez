@@ -1,4 +1,4 @@
-﻿import { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { 
   Terminal,
   ExternalLink,
@@ -403,10 +403,10 @@ export default function App() {
         {/* FOUNDER SECTION */}
         <FounderSection isTechGirl={isTechGirl} />
 
-      </main>
+        {/* Full Footer */}
+        <Footer isTechGirl={isTechGirl} />
 
-      {/* Full Footer */}
-      <Footer isTechGirl={isTechGirl} />
+      </main>
 
     </div>
   );

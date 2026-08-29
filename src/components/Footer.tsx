@@ -10,7 +10,7 @@ export function Footer({ isTechGirl }: FooterProps) {
   };
 
   return (
-    <footer className="border-t border-[#E6E9EF]/10 bg-[#030C1E] pt-16 pb-12">
+    <footer className="relative z-20 border-t border-[#E6E9EF]/15 bg-[#030C1E] pt-16 pb-12 shadow-2xl">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 pb-12 border-b border-[#E6E9EF]/10">
