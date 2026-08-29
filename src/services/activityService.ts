@@ -45,6 +45,7 @@ export interface RealJobItem {
 }
 
 const STORAGE_KEY = 'resourceit_real_activities_v1';
+const API_BASE = '/api';
 
 const defaultRealActivities: CommunityActivity[] = [
   {
@@ -172,7 +173,7 @@ export async function fetchTechNews(): Promise<TechNewsArticle[]> {
     const controller = new AbortController();
     const timeoutId = setTimeout(() => controller.abort(), 3500);
 
-    const res = await fetch('http://localhost:3001/api/tech-news', { signal: controller.signal });
+    const res = await fetch(`${API_BASE}/tech-news`, { signal: controller.signal });
     clearTimeout(timeoutId);
 
     if (!res.ok) return [];
@@ -186,7 +187,7 @@ export async function fetchTechNews(): Promise<TechNewsArticle[]> {
 // React to Tech News
 export async function reactToTechNews(newsId: string, emoji: 'fire' | 'rocket' | 'heart' | 'insight'): Promise<NewsReactions | null> {
   try {
-    const res = await fetch(`http://localhost:3001/api/tech-news/${newsId}/react`, {
+    const res = await fetch(`${API_BASE}/tech-news/${newsId}/react`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ emoji })
@@ -205,7 +206,7 @@ export async function fetchRealJobs(): Promise<RealJobItem[]> {
     const controller = new AbortController();
     const timeoutId = setTimeout(() => controller.abort(), 3000);
 
-    const res = await fetch('http://localhost:3001/api/jobs', { signal: controller.signal });
+    const res = await fetch(`${API_BASE}/jobs`, { signal: controller.signal });
     clearTimeout(timeoutId);
 
     if (!res.ok) return [];
@@ -225,7 +226,7 @@ export async function getRealActivities(): Promise<CommunityActivity[]> {
   try {
     const controller = new AbortController();
     const timeoutId = setTimeout(() => controller.abort(), 2000);
-    const res = await fetch('http://localhost:3001/api/activities', { signal: controller.signal });
+    const res = await fetch(`${API_BASE}/activities`, { signal: controller.signal });
     clearTimeout(timeoutId);
     if (res.ok) {
       backendActivities = await res.json();
@@ -267,7 +268,7 @@ export async function fetchCommunityGroups(): Promise<CommunityGroupsResponse | 
     const controller = new AbortController();
     const timeoutId = setTimeout(() => controller.abort(), 2000);
 
-    const res = await fetch('http://localhost:3001/api/groups', { signal: controller.signal });
+    const res = await fetch(`${API_BASE}/groups`, { signal: controller.signal });
     clearTimeout(timeoutId);
 
     if (!res.ok) return null;
@@ -302,7 +303,7 @@ export function getVisitorId(): string {
 export async function sendPresenceHeartbeat(): Promise<void> {
   try {
     const visitorId = getVisitorId();
-    await fetch('http://localhost:3001/api/heartbeat', {
+    await fetch(`${API_BASE}/heartbeat`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ visitorId })
@@ -317,7 +318,7 @@ export async function fetchRealPresence(): Promise<PresenceData | null> {
     const controller = new AbortController();
     const timeoutId = setTimeout(() => controller.abort(), 2500);
 
-    const res = await fetch('http://localhost:3001/api/presence', { signal: controller.signal });
+    const res = await fetch(`${API_BASE}/presence`, { signal: controller.signal });
     clearTimeout(timeoutId);
 
     if (!res.ok) return null;
