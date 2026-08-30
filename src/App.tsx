@@ -19,7 +19,6 @@ import {
   Zap
 } from 'lucide-react';
 import { Navbar } from './components/Navbar';
-import { ActivityTicker } from './components/ActivityTicker';
 import { RotatingWords } from './components/RotatingWords';
 import { MembersOnline } from './components/MembersOnline';
 import { TechMarquee } from './components/TechMarquee';
@@ -135,10 +134,7 @@ export default function App() {
       <div className={isTechGirl ? "hero-aura-bg-techgirl" : "hero-aura-bg"} />
       <div className="noise-overlay" />
 
-      {/* Top Continuous Ticker Bar */}
-      <ActivityTicker />
-
-      {/* Fixed Navbar */}
+      {/* Fixed Navbar (contains integrated ActivityTicker) */}
       <Navbar 
         theme={theme}
         onToggleTheme={() => handleSetTheme(isTechGirl ? 'general' : 'techgirl')}
@@ -170,7 +166,7 @@ export default function App() {
       <main id="inicio" className="relative z-10">
         
         {/* HERO SECTION with Dynamic Organic Iridescent Wave Background */}
-        <section className="pt-24 md:pt-32 pb-16 md:pb-24 relative">
+        <section className="pt-28 sm:pt-32 md:pt-36 lg:pt-40 pb-16 md:pb-24 relative">
           
           {/* Organic Iridescent Wave & Light Trails directly from Logo */}
           <HeroIridescentAura isTechGirl={isTechGirl} />

@@ -1,4 +1,4 @@
-﻿import { useRef } from 'react';
+import { useRef } from 'react';
 import { motion } from 'framer-motion';
 import { ArrowUpRight, Flame, Sparkles, ChevronLeft, ChevronRight } from 'lucide-react';
 import { liveNowEvents } from '../data/communityData';
@@ -21,7 +21,7 @@ export function LiveNow({ isTechGirl }: LiveNowProps) {
   };
 
   return (
-    <section aria-labelledby="livenow-heading" className="py-16 md:py-20 border-t border-[#E6E9EF]/10 relative overflow-hidden">
+    <section id="ao-vivo" aria-labelledby="livenow-heading" className="py-16 md:py-20 border-t border-[#E6E9EF]/10 relative overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Header with Navigation Controls */}
