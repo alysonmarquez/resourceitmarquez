@@ -78,6 +78,17 @@ export default function App() {
 
   const partners = [
     {
+      id: 'trilhasenior',
+      name: 'Trilha Sênior',
+      type: 'Formação Dev Poliglota',
+      title: 'Formação Poliglota & System Design',
+      desc: 'Domine Java, Go, Kotlin, Elixir, Rust e TypeScript. Do design de sistemas e microsserviços à implementação avançada em produção.',
+      coupon: 'MARQUEZZDEV',
+      discount: '10% OFF',
+      link: 'https://trilhasenior.com.br/',
+      icon: '⚡'
+    },
+    {
       id: 'rocketseat',
       name: 'Rocketseat',
       type: 'Plataforma Parceira',
@@ -328,7 +339,7 @@ export default function App() {
             </div>
 
             {/* Partners Grid */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
               {partners.map((partner, idx) => (
                 <GlowCard 
                   key={idx}
@@ -355,9 +366,16 @@ export default function App() {
                       <div className="mb-5 p-3 rounded-xl border border-dashed border-[#E0A34A]/40 bg-[#E0A34A]/10 flex items-center justify-between">
                         <div className="flex items-center gap-2">
                           <Tag size={14} className="text-[#E0A34A]" />
-                          <span className="font-mono text-xs font-bold text-[#E6E9EF] tracking-wider">
-                            {partner.coupon}
-                          </span>
+                          <div className="flex items-center gap-1.5">
+                            <span className="font-mono text-xs font-bold text-[#E6E9EF] tracking-wider">
+                              {partner.coupon}
+                            </span>
+                            {partner.discount && (
+                              <span className="text-[10px] font-mono font-extrabold px-1.5 py-0.2 rounded bg-[#E0A34A]/20 text-[#E0A34A] border border-[#E0A34A]/30">
+                                {partner.discount}
+                              </span>
+                            )}
+                          </div>
                         </div>
                         <button
                           type="button"

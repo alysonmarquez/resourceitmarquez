@@ -157,6 +157,11 @@ export function Footer({ isTechGirl }: FooterProps) {
             </h4>
             <ul className="flex flex-col gap-2 text-xs text-[#A1AEC2]">
               <li>
+                <a href="https://trilhasenior.com.br/" target="_blank" rel="noopener noreferrer" className="hover:text-[#E6E9EF] transition-colors text-[#E0A34A] font-medium">
+                  Trilha Sênior (Cupom: MARQUEZZDEV 10% OFF)
+                </a>
+              </li>
+              <li>
                 <a href="https://www.marquezmatch.online/" target="_blank" rel="noopener noreferrer" className="hover:text-[#E6E9EF] transition-colors">
                   MarquezMatch
                 </a>
