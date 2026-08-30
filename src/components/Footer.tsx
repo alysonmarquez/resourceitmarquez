@@ -173,7 +173,7 @@ export function Footer({ isTechGirl }: FooterProps) {
               </li>
               <li>
                 <a href="https://www.zaroc.com.br/?utm_source=influenciador&utm_medium=social&utm_campaign=MARQUEZZDEV" target="_blank" rel="noopener noreferrer" className="hover:text-[#E6E9EF] transition-colors">
-                  Zaroc Tech Wear (Cupom: MARQUEZZDEV)
+                  Zaroc (Cupom: MARQUEZZDEV)
                 </a>
               </li>
             </ul>

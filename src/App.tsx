@@ -100,7 +100,7 @@ export default function App() {
     },
     {
       id: 'zaroc',
-      name: 'Zaroc Tech Wear',
+      name: 'Zaroc',
       type: 'Tech Wear & Vestuário',
       title: 'Camiseta Tech Modal Essential',
       desc: 'Vestuário tecnológico e minimalista para desenvolvedores com tecido Modal Essential e tecnologia anti-odor.',
